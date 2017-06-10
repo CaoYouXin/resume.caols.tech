@@ -1,0 +1,14 @@
+@keyframes text_blink {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.text.active:after {
+    content: '|';
+    animation: text_blink .5s ease-in-out 0s infinite alternate;
+}

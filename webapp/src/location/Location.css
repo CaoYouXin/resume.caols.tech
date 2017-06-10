@@ -1,0 +1,7 @@
+.location-wrapper {
+    height: inherit;
+}
+
+.location-notation {
+    user-select: none;
+}

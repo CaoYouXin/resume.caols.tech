@@ -1,0 +1,36 @@
+@keyframes bg_move {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -300px 0;
+    }
+}
+
+.gallery {
+    display: inline-block;
+
+    width: 450px;
+    height: 150px;
+
+    background: transparent url("day-and-night.png") no-repeat;
+    background-size: 750px 150px;
+
+    animation: bg_move linear;
+}
+
+.mask {
+    width: 150px;
+    height: inherit;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.left{
+    float: left;
+}
+
+.right {
+    float: right;
+}

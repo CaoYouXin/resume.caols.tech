@@ -1,0 +1,18 @@
+.handles-wrapper {
+    height: inherit;
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+}
+
+.button.next {
+    background: transparent url("_forward.png") no-repeat;
+    background-size: contain;
+}
+
+.button.next:hover {
+    background: transparent url("forward.png") no-repeat;
+    background-size: contain;
+}

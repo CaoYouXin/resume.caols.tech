@@ -1,0 +1,24 @@
+.list-wrapper {
+    color: whitesmoke;
+}
+
+.list.title {
+    height: 30px;
+    line-height: 30px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    border-bottom: solid 1px indianred;
+
+    user-select: none;
+}
+
+ul.list.content {
+    list-style: none;
+}
+
+ul.list.content > li {
+    border-bottom: solid 1px floralwhite;
+}
