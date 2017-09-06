@@ -6,9 +6,7 @@ class HandleBar extends Component {
     render() {
         return (
             <div className="handles-wrapper v-mid-box">
-                <div className={group({
-                    "button": true
-                }, [this.props.status])}></div>
+                <div className={group(null, ["button", this.props.status])}></div>
             </div>
         );
     }

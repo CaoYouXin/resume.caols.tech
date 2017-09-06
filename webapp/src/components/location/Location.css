@@ -5,3 +5,7 @@
 .location-notation {
     user-select: none;
 }
+
+.location {
+    font-weight: bolder;
+}

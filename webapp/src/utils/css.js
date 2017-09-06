@@ -1,5 +1,12 @@
 export const group = (decision, addition) => {
-  let remains = Object.keys(decision).filter(k => decision[k]);
+  let remains = null;
+
+  if (!decision) {
+    remains = [];
+  } else {
+    remains = Object.keys(decision).filter(k => decision[k]);
+  }
+
   if (!addition) {
     return remains.join(' ');
   }
@@ -10,5 +17,13 @@ export const group = (decision, addition) => {
 
 export const select = (one, candidates) => {
   let candidate = candidates[one];
-  return !candidate ? {} : candidate;
+  candidate = !candidate ? {} : candidate;
+
+  if (typeof candidate === 'function') {
+    // candidate = candidate.bind(candidates);
+    // candidate = candidate.call(candidates);
+    candidate = candidate();
+  }
+
+  return candidate;
 }

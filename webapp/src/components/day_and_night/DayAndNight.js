@@ -9,7 +9,7 @@ class DayAndNight extends Component {
         this.normalStyles = {
             animationPlayState: 'running',
             animationDuration: '2s',
-            animationDelay: '0s',
+            animationDelay: '0s'
         };
 
         this.pausedStyles = {
@@ -22,19 +22,21 @@ class DayAndNight extends Component {
         this.endStyles = {
             animationPlayState: 'running',
             animationDuration: '0.1s',
-            animationDelay: '0s',
-            animationIterationCount: '10'
+            animationDelay: '0s'
         }
     }
 
     render() {
         let { status, count } = this.props;
+        this.count = count;
         return (
             <div className="gallery" style={select(status, {
-                "end": this.endStyles,
+                "end": () => Object.assign({}, this.endStyles, {
+                    animationIterationCount: '' + Math.min(10, this.count || 10)
+                }),
                 "paused": this.pausedStyles,
-                "normal": Object.assign({}, this.normalStyles, {
-                    animationIterationCount: '' + (count || 'infinite')
+                "normal": () => Object.assign({}, this.normalStyles, {
+                    animationIterationCount: '' + (this.count || 'infinite')
                 })
             })}>
                 <div className="mask left"></div>
