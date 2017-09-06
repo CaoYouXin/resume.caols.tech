@@ -1,14 +1,14 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "./HandleBar.css";
+import { group } from '../../utils';
 
 class HandleBar extends Component {
     render() {
-        let buttonClassName = 'button ';
-        buttonClassName += this.props.status;
-
         return (
             <div className="handles-wrapper v-mid-box">
-                <div className={buttonClassName}></div>
+                <div className={group({
+                    "button": true
+                }, [this.props.status])}></div>
             </div>
         );
     }

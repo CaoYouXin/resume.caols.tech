@@ -7,6 +7,16 @@
     height: 50px;
 }
 
+.button:active {
+    width: 40px;
+    height: 40px;
+}
+
+.button.disabled {
+    width: 0;
+    height: 0;
+}
+
 .button.next {
     background: transparent url("_forward.png") no-repeat;
     background-size: contain;
