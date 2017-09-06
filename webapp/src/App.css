@@ -13,7 +13,8 @@
     clear: both;
 }
 
-.App-header-left, .App-header-right {
+.App-header-left,
+.App-header-right {
     height: inherit;
     float: left;
 }
@@ -25,8 +26,8 @@
 
 .App-header-right {
     width: calc(100% - 300px);
-    background: url("Moraine_Lake.jpg") no-repeat 0 -100px;
-    background-size: 100%;
+    background: url("Moraine_Lake.jpg") no-repeat;
+    background-size: 100% 100%;
 }
 
 .App-middle {
@@ -35,7 +36,8 @@
     height: 50px;
 }
 
-.App-left, .App-right {
+.App-left,
+.App-right {
     position: absolute;
     height: calc(100% - 200px);
 }
@@ -45,7 +47,8 @@
     width: 300px;
 }
 
-.App-left-top, .App-left-bottom {
+.App-left-top,
+.App-left-bottom {
     width: inherit;
     height: 50%;
 }
@@ -64,7 +67,8 @@
     left: 300px;
 }
 
-.App-right-top, .App-right-bottom {
+.App-right-top,
+.App-right-bottom {
     width: 100%;
     position: static;
 }
@@ -78,7 +82,9 @@
     height: 50px;
 }
 
-.App-left-top, .App-left-bottom, .App-right-top {
+.App-left-top,
+.App-left-bottom,
+.App-right-top {
     padding: 1em;
     text-align: left;
     overflow: auto;
