@@ -1,5 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "./DayAndNight.css"
+import { connect } from 'react-redux';
+import { select } from '../../utils';
 
 class DayAndNight extends Component {
     constructor(props) {
@@ -8,7 +10,6 @@ class DayAndNight extends Component {
             animationPlayState: 'running',
             animationDuration: '2s',
             animationDelay: '0s',
-            animationIterationCount: 'infinite'
         };
 
         this.pausedStyles = {
@@ -26,27 +27,16 @@ class DayAndNight extends Component {
         }
     }
 
-
-
     render() {
-        let status = null;
-        switch (this.props.status) {
-            case 'end':
-                status = this.endStyles;
-                break;
-            case 'paused':
-                status = this.pausedStyles;
-                break;
-            case 'normal':
-            default:
-                status = Object.assign({}, this.normalStyles, {
-                    animationIterationCount: '' + (this.props.count || 'infinite')
-                });
-                break;
-        }
-
+        let { status, count } = this.props;
         return (
-            <div className="gallery" style={status}>
+            <div className="gallery" style={select(status, {
+                "end": this.endStyles,
+                "paused": this.pausedStyles,
+                "normal": Object.assign({}, this.normalStyles, {
+                    animationIterationCount: '' + (count || 'infinite')
+                })
+            })}>
                 <div className="mask left"></div>
                 <div className="mask right"></div>
             </div>
@@ -54,4 +44,10 @@ class DayAndNight extends Component {
     }
 }
 
-export default DayAndNight;
+export default connect(
+    (store) => ({
+        status: store.day_and_night.status,
+        count: store.day_and_night.count
+    }),
+    (dispatch) => ({})
+)(DayAndNight);

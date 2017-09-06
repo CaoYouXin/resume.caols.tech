@@ -7,3 +7,8 @@ export const group = (decision, addition) => {
   let all = remains.concat(addition);
   return all.join(' ');
 }
+
+export const select = (one, candidates) => {
+  let candidate = candidates[one];
+  return !candidate ? {} : candidate;
+}

@@ -25,7 +25,7 @@ class App extends Component {
                         <TimeHeader />
                     </div>
                     <div className="App-header-right">
-                        <DayAndNight status="normal" />
+                        <DayAndNight />
                     </div>
                 </div>
                 <div className="App-middle">
