@@ -1,55 +1,103 @@
 import React, { Component } from "react";
 import "./App.css";
+import { connect } from 'react-redux';
 import TimeHeader from "./components/time_header/TimeHeader";
 import Location from "./components/location/Location";
 import DayAndNight from "./components/day_and_night/DayAndNight";
 import HandleBar from "./components/handle_bar/HandleBar";
-import Text from "./components/text/Text";
 import List from "./components/list/List";
+import { group } from './utils';
+
+const MatterItemList = connect(
+  (store) => ({
+    items: [
+      '你好！可以试试多开',
+      '音频，然后延时播放。比如说在10ms时播放第二个音频'
+    ]
+  }),
+  (dispatch) => ({})
+)(List);
+
+const MatterPeopleList = connect(
+  (store) => ({
+    items: [
+      'XXX',
+      'YYY'
+    ]
+  }),
+  (dispatch) => ({})
+)(List);
 
 class App extends Component {
-    render() {
-        const matterItems = [
-            '你好！可以试试多开',
-            '音频，然后延时播放。比如说在10ms时播放第二个音频'
-        ];
-        const matterPeople = [
-            'XXX',
-            'YYY'
-        ];
 
-        return (
-            <div className="App">
-                <div className="App-header">
-                    <div className="App-header-left">
-                        <TimeHeader />
-                    </div>
-                    <div className="App-header-right">
-                        <DayAndNight />
-                    </div>
-                </div>
-                <div className="App-middle">
-                    <Location />
-                </div>
-                <div className="App-left">
-                    <div className="App-left-top">
-                        <List title="事项" items={matterItems} />
-                    </div>
-                    <div className="App-left-bottom">
-                        <List title="参与人物" items={matterPeople} />
-                    </div>
-                </div>
-                <div className="App-right">
-                    <div className="App-right-top">
-                        <Text fontSize="20" maxWidth="500px" text="你好！<audio>的接口里有声音播放速度的接口，但是多浏览器支持没有做过测试，楼主小心使用。" />
-                    </div>
-                    <div className="App-right-bottom">
-                        <HandleBar status="next" />
-                    </div>
-                </div>
+  constructor(props) {
+    super(props);
+    this.rerender = this.rerender.bind(this);
+  }
+
+  rerender() {
+    this.forceUpdate();
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.rerender);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.rerender);
+  }
+
+  render() {
+    let ratio = (window.innerWidth - 200) / (window.innerHeight - 300);
+    return (
+      <div className="App">
+        <div className="App-header">
+          <div className="App-header-left">
+            <TimeHeader />
+          </div>
+          <div className="App-header-right">
+            <DayAndNight />
+          </div>
+        </div>
+        <div className="App-middle">
+          <Location />
+        </div>
+        <div className="App-left">
+          <div className="App-left-top">
+            <MatterItemList title="事项" />
+          </div>
+          <div className="App-left-bottom">
+            <MatterPeopleList title="参与人物" />
+          </div>
+        </div>
+        <div className="App-right">
+          <div className="App-right-top">
+            <div className={group({
+              "App-right-top-top": ratio < 2,
+              "App-right-top-left-top": ratio >= 2
+            })}>
+
             </div>
-        );
-    }
+            <div className={group({
+              "App-right-top-bottom-left": ratio < 2,
+              "App-right-top-left-bottom": ratio >= 2
+            })}>
+
+            </div>
+            <div className={group({
+              "App-right-top-bottom-right": ratio < 2,
+              "App-right-top-right": ratio >= 2
+            })}>
+
+            </div>
+          </div>
+          <div className="App-right-bottom">
+            <HandleBar />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

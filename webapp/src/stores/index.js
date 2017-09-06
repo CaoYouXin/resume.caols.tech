@@ -5,6 +5,8 @@ import throttle from 'lodash/throttle';
 import { fromLocalStorage, toLocalStorage } from '../utils';
 
 import day_and_night from './day_and_night';
+import handle_bar from './handle_bar';
+import time_header from './time_header';
 
 export const configStore = () => {
   let middlewares = [thunk];
@@ -14,7 +16,9 @@ export const configStore = () => {
   }
 
   const store = createStore(combineReducers({
-    day_and_night
+    day_and_night,
+    handle_bar,
+    time_header
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 
   store.subscribe(throttle(() => {
