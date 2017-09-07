@@ -7,6 +7,8 @@ import DayAndNight from "./components/day_and_night/DayAndNight";
 import HandleBar from "./components/handle_bar/HandleBar";
 import List from "./components/list/List";
 import Text from "./components/text/Text";
+import Gallery from "./components/gallery/Gallery";
+import GalleryShow from "./components/gallery_show/GalleryShow";
 import { group } from './utils';
 
 const MatterItemList = connect(
@@ -61,6 +63,7 @@ class App extends Component {
     let ratio = (window.innerWidth - 200) / (window.innerHeight - 300);
     return (
       <div className="App">
+        <GalleryShow />
         <div className="App-header">
           <div className="App-header-left">
             <TimeHeader />
@@ -92,7 +95,7 @@ class App extends Component {
               "App-right-top-bottom-left": ratio < 2,
               "App-right-top-left-bottom": ratio >= 2
             })}>
-
+              <Gallery />
             </div>
             <div className={group({
               "App-right-top-bottom-right": ratio < 2,
