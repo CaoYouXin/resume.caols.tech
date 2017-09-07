@@ -34,6 +34,7 @@ class GalleryShowComponent extends Component {
     let { index } = this.props;
     if (index <= 0) {
       alert('没有了！');
+      this.canPrev = true;
       return;
     }
 
@@ -69,6 +70,7 @@ class GalleryShowComponent extends Component {
     let { index, items } = this.props;
     if (index >= items.length - 1) {
       alert('没有了！');
+      this.canNext = true;
       return;
     }
 
@@ -152,8 +154,8 @@ class GalleryShowComponent extends Component {
             && <div className="show-panel" style={{ backgroundImage: this.item(keys[slot2])(index, items) }}></div>
           }
         </div>
-        <div className="show-handle-left" onClick={(e) => this.prev()}></div>
-        <div className="show-handle-right" onClick={(e) => this.next()}></div>
+        <div className="show-handle-left" onClick={(e) => this.prev()}><div></div></div>
+        <div className="show-handle-right" onClick={(e) => this.next()}><div></div></div>
         <div className="show-handle-close" onClick={(e) => close()}></div>
       </div>
     );
