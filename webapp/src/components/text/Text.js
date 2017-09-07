@@ -12,8 +12,7 @@ class Text extends Component {
       index: 0,
       active: true,
       styles: {
-        fontSize: this.props.fontSize + 'px',
-        maxWidth: this.props.maxWidth
+        fontSize: this.props.fontSize + 'px'
       }
     };
   }
@@ -31,8 +30,9 @@ class Text extends Component {
       return;
     }
 
+    let append = this.props.text.charAt(this.state.index);
     this.setState({
-      text: this.state.text + this.props.text.charAt(this.state.index),
+      text: this.state.text + append,
       index: this.state.index + 1
     });
   }

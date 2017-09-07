@@ -88,12 +88,13 @@
     right: 0;
     width: 50%;
     height: 100%;
+    overflow: hidden;
 }
 
 .App-right-top-left-top,
 .App-right-top-left-bottom {
     position: absolute;
-    width: 100%;
+    width: 50%;
     height: 50%;
 }
 
@@ -126,6 +127,7 @@
 
 .App-right-top-bottom-right {
     right: 0;
+    overflow: hidden;
 }
 
 .App-right-top-bottom-left,
@@ -140,7 +142,9 @@
 }
 
 .App-left-top,
-.App-left-bottom {
+.App-left-bottom,
+.App-right-top-top,
+.App-right-top-left-top {
     padding: 1em;
     text-align: left;
     overflow: auto;

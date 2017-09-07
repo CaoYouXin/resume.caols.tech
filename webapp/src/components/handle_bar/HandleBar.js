@@ -4,30 +4,25 @@ import { connect } from 'react-redux';
 import { group } from '../../utils';
 
 class HandleBar extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div className="handles-wrapper v-mid-box">
-                <div className={group(null, ["button", this.props.status])} onClick={this.props.clicked}></div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="handles-wrapper v-mid-box">
+        <div className={group(null, ["button", this.props.status])} onClick={this.props.clicked}></div>
+      </div>
+    );
+  }
 }
 
 export default connect(
-    (store) => ({
-        status: store.handle_bar.status
-    }),
-    (dispatch) => ({
-        clicked: () => {
-            dispatch({
-                type: 'TIME_HEADER_STATUS',
-                status: Math.random() < 0.5 ? 'stopped' : 'going'
-            });
-        }
-    })
+  (store) => ({
+    status: store.handle_bar.status
+  }),
+  (dispatch) => ({
+    clicked: () => {
+      dispatch({
+        type: 'TIME_HEADER_STATUS',
+        status: Math.random() < 0.5 ? 'stopped' : 'going'
+      });
+    }
+  })
 )(HandleBar);
