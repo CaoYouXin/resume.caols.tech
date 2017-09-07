@@ -3,8 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-image: url("./blur.jpg");
-    background-size: 100%;
-    background-repeat: repeat-y;
+    background-size: 100% 100%;
 }
 
 .gallery-item {
@@ -12,6 +11,11 @@
     width: 200px;
     height: 200px;
     margin: 10px;
+}
+
+.gallery-item:hover {
+    transform-origin: 50% 50% 0;
+    transform: scale(0.98);
 }
 
 .gallery-item>img {
