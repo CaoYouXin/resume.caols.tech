@@ -9,6 +9,7 @@ import List from "./components/list/List";
 import Text from "./components/text/Text";
 import Gallery from "./components/gallery/Gallery";
 import GalleryShow from "./components/gallery_show/GalleryShow";
+import Canvas3D from "./components/canvas/Canvas3D";
 import { group } from './utils';
 
 const MatterItemList = connect(
@@ -31,15 +32,6 @@ const MatterPeopleList = connect(
   (dispatch) => ({})
 )(List);
 
-// const DiaryContentList = connect(
-//   (store) => ({
-//     items: [
-
-//     ]
-//   }),
-//   (dispatch) => ({})
-// )(List);
-
 class App extends Component {
 
   constructor(props) {
@@ -60,7 +52,7 @@ class App extends Component {
   }
 
   render() {
-    let ratio = (window.innerWidth - 200) / (window.innerHeight - 300);
+    let ratio = (window.innerWidth - 300) / (window.innerHeight - 200);
     return (
       <div className="App">
         <GalleryShow />
@@ -101,7 +93,7 @@ class App extends Component {
               "App-right-top-bottom-right": ratio < 2,
               "App-right-top-right": ratio >= 2
             })}>
-
+              <Canvas3D />
             </div>
           </div>
           <div className="App-right-bottom">
