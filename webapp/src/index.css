@@ -1,15 +1,22 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: "Hiragino Sans GB", "Microsoft Yahei", "Ubuntu", monospace;
+}
+
+code {
+    font-family: "CQ Mono", Monaco, "Lucida Console", "Courier New", "Ubuntu Mono", monospace;
 }
 
 .v-mid-box {
     text-align: center;
 }
 
-.v-mid-box > *, .v-mid-box:after {
+.v-mid-box>*,
+.v-mid-box:after {
     display: inline-block;
     vertical-align: middle;
 }
