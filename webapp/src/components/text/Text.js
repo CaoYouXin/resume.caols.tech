@@ -17,6 +17,7 @@ class Text extends Component {
     };
   }
 
+
   componentDidMount() {
     this.interval = this.props.addInterval(this.tick.bind(this), 100);
     this.audioEl.play();
@@ -43,7 +44,7 @@ class Text extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.text && prevProps.text !== this.props.text) {
       this.props.removeInterval(this.interval);
-      this.audioEl.stop();
+      this.audioEl.pause();
       this.setState({
         text: '',
         index: 0,
