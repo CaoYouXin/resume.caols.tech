@@ -16,3 +16,16 @@ export const fromLocalStorage = () => {
     return undefined;
   }
 }
+
+export const clearButToken = () => {
+  let obj = JSON.parse(localStorage.getItem('obj') || '{}');
+  localStorage.clear();
+  localStorage.setItem('obj', JSON.stringify({
+    user: obj.user
+  }));
+}
+
+export const getToken = () => {
+  let obj = JSON.parse(localStorage.getItem('obj') || '{}');
+  return (obj.user || { UserToken: null }).UserToken;
+}
