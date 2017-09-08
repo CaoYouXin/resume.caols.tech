@@ -5,9 +5,24 @@
     right: 0;
 }
 
-.App-Canvas3D-PC-1-1 {
+.App-Canvas3D-PC-1-1,
+.App-Canvas3D-Landscape-1-1 {
     width: calc((100% - 300px) / 2);
     height: calc((100% - 250px) / 2);
     bottom: 50px;
     right: 0;
+}
+
+.App-Canvas3D-Mobile {
+    width: 50%;
+    height: calc(100% - 700px);
+    left: 0;
+    bottom: 50px;
+}
+
+.App-Canvas3D-Landscape-16-9 {
+    width: calc((100% - 300px) / 3);
+    height: calc(100% - 250px);
+    right: 0;
+    bottom: 50px;
 }

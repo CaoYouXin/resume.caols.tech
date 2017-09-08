@@ -1,5 +1,8 @@
 .App-Diary-PC-16-9,
-.App-Diary-PC-1-1 {
+.App-Diary-PC-1-1,
+.App-Diary-Mobile,
+.App-Diary-Landscape-1-1,
+.App-Diary-Landscape-16-9 {
     color: blanchedalmond;
     text-shadow: 1px 1px 3px rebeccapurple;
     padding: 1em;
@@ -14,9 +17,24 @@
     left: 300px;
 }
 
-.App-Diary-PC-1-1 {
+.App-Diary-PC-1-1,
+.App-Diary-Landscape-1-1 {
     width: calc(100% - 300px);
     height: calc((100% - 250px) / 2);
     top: 200px;
     left: 300px;
+}
+
+.App-Diary-Mobile {
+    width: 50%;
+    height: calc(100% - 700px);
+    right: 0;
+    bottom: 50px;
+}
+
+.App-Diary-Landscape-16-9 {
+    width: calc((100% - 300px) / 3);
+    height: calc(100% - 250px);
+    bottom: 50px;
+    right: calc((100% - 300px) / 3);
 }

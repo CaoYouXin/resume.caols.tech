@@ -1,9 +1,6 @@
-.App-TimeHeader-PC {
+.App-TimeHeader {
     color: #ddd;
     background-image: linear-gradient(to bottom, #111, #555);
-}
-
-.App-TimeHeader-PC {
     width: 300px;
     height: 150px;
     top: 0;

@@ -60,10 +60,10 @@ class App extends Component {
 
     let width = Math.min(window.screen.availWidth, window.screen.availHeight);
     let height = Math.max(window.screen.availWidth, window.screen.availHeight);
-    if (!window['orientation'] || window['orientation'] === 180 || window['orientation'] === 0) {
+    if (width === window.screen.availWidth) {
       this.landscape = false;
       fixScreen(this.isAndroid, 750, width);
-    } else if (window['orientation'] === 90 || window['orientation'] === -90) {
+    } else if (width === window.screen.availHeight) {
       this.landscape = true;
       fixScreen(this.isAndroid, 750 / width * height, height);
     }
@@ -91,24 +91,15 @@ class App extends Component {
 
   render() {
     let ratio = (window.innerWidth - 300) / (window.innerHeight - 200);
-    console.log(ratio);
     return (
       <div className="App">
         <GalleryShow />
 
-        <div className={group({
-          "App-TimeHeader-Mobile": this.isMobile && !this.landscape,
-          "App-TimeHeader-Landscape": this.isMobile && this.landscape,
-          "App-TimeHeader-PC": !this.isMobile
-        })}>
+        <div className="App-TimeHeader">
           <TimeHeader />
         </div>
 
-        <div className={group({
-          "App-DayAndNight-Mobile": this.isMobile && !this.landscape,
-          "App-DayAndNight-Landscape": this.isMobile && this.landscape,
-          "App-DayAndNight-PC": !this.isMobile
-        })}>
+        <div className="App-DayAndNight">
           <DayAndNight />
         </div>
 
@@ -138,7 +129,8 @@ class App extends Component {
 
         <div className={group({
           "App-Diary-Mobile": this.isMobile && !this.landscape,
-          "App-Diary-Landscape": this.isMobile && this.landscape,
+          "App-Diary-Landscape-16-9": this.isMobile && this.landscape && ratio >= 1.5,
+          "App-Diary-Landscape-1-1": this.isMobile && this.landscape && ratio < 1.5,
           "App-Diary-PC-16-9": !this.isMobile && ratio >= 2,
           "App-Diary-PC-1-1": !this.isMobile && ratio < 2
         })}>
@@ -147,7 +139,8 @@ class App extends Component {
 
         <div className={group({
           "App-Gallery-Mobile": this.isMobile && !this.landscape,
-          "App-Gallery-Landscape": this.isMobile && this.landscape,
+          "App-Gallery-Landscape-16-9": this.isMobile && this.landscape && ratio >= 1.5,
+          "App-Gallery-Landscape-1-1": this.isMobile && this.landscape && ratio < 1.5,
           "App-Gallery-PC": !this.isMobile
         })}>
           <Gallery />
@@ -155,7 +148,8 @@ class App extends Component {
 
         <div className={group({
           "App-Canvas3D-Mobile": this.isMobile && !this.landscape,
-          "App-Canvas3D-Landscape": this.isMobile && this.landscape,
+          "App-Canvas3D-Landscape-16-9": this.isMobile && this.landscape && ratio >= 1.5,
+          "App-Canvas3D-Landscape-1-1": this.isMobile && this.landscape && ratio < 1.5,
           "App-Canvas3D-PC-16-9": !this.isMobile && ratio >= 2,
           "App-Canvas3D-PC-1-1": !this.isMobile && ratio < 2
         })}>

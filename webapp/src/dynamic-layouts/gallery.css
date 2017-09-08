@@ -1,10 +1,28 @@
-.App-Gallery-PC {
+.App-Gallery-PC,
+.App-Gallery-Mobile,
+.App-Gallery-Landscape-1-1,
+.App-Gallery-Landscape-16-9 {
     overflow: auto;
 }
 
-.App-Gallery-PC {
+.App-Gallery-PC,
+.App-Gallery-Landscape-1-1 {
     width: calc((100% - 300px) / 2);
     height: calc((100% - 250px) / 2);
     bottom: 50px;
     left: 300px;
+}
+
+.App-Gallery-Mobile {
+    height: 300px;
+    top: 350px;
+    left: 0;
+    right: 0;
+}
+
+.App-Gallery-Landscape-16-9 {
+    width: calc((100% - 300px) / 3);
+    height: calc(100% - 250px);
+    left: 300px;
+    bottom: 50px;
 }

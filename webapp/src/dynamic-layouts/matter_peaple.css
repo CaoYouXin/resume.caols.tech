@@ -1,13 +1,23 @@
-.App-MatterPeople-PC {
+.App-MatterPeople-PC,
+.App-MatterPeople-Mobile,
+.App-MatterPeople-Landscape {
     overflow: auto;
     padding: 1em;
     color: whitesmoke;
     background-image: linear-gradient(to bottom, #333, #555);
 }
 
-.App-MatterPeople-PC {
+.App-MatterPeople-PC,
+.App-MatterPeople-Landscape {
     width: 300px;
     height: calc((100% - 200px) / 2);
     left: 0;
     bottom: 0;
+}
+
+.App-MatterPeople-Mobile {
+    width: 50%;
+    height: 200px;
+    right: 0;
+    top: 150px;
 }
