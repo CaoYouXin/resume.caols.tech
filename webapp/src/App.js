@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import "./dynamic-layouts";
 import { connect } from 'react-redux';
 import TimeHeader from "./components/time_header/TimeHeader";
 import Location from "./components/location/Location";
@@ -10,7 +11,7 @@ import Gallery from "./components/gallery/Gallery";
 import GalleryShow from "./components/gallery_show/GalleryShow";
 import Canvas3D from "./components/canvas/Canvas3D";
 import Diary from "./components/diary/Diary";
-import { group } from './utils';
+import { group, fixScreen } from './utils';
 
 const MatterItemList = connect(
   (store) => ({
@@ -90,53 +91,86 @@ class App extends Component {
 
   render() {
     let ratio = (window.innerWidth - 300) / (window.innerHeight - 200);
+    console.log(ratio);
     return (
       <div className="App">
         <GalleryShow />
-        <div className="App-header">
-          <div className="App-header-left">
-            <TimeHeader />
-          </div>
-          <div className="App-header-right">
-            <DayAndNight />
-          </div>
+
+        <div className={group({
+          "App-TimeHeader-Mobile": this.isMobile && !this.landscape,
+          "App-TimeHeader-Landscape": this.isMobile && this.landscape,
+          "App-TimeHeader-PC": !this.isMobile
+        })}>
+          <TimeHeader />
         </div>
-        <div className="App-middle">
+
+        <div className={group({
+          "App-DayAndNight-Mobile": this.isMobile && !this.landscape,
+          "App-DayAndNight-Landscape": this.isMobile && this.landscape,
+          "App-DayAndNight-PC": !this.isMobile
+        })}>
+          <DayAndNight />
+        </div>
+
+        <div className={group({
+          "App-Location-Mobile": this.isMobile && !this.landscape,
+          "App-Location-Landscape": this.isMobile && this.landscape,
+          "App-Location-PC": !this.isMobile
+        })}>
           <Location />
         </div>
-        <div className="App-left">
-          <div className="App-left-top">
-            <MatterItemList title="事项" />
-          </div>
-          <div className="App-left-bottom">
-            <MatterPeopleList title="参与人物" />
-          </div>
+
+        <div className={group({
+          "App-MatterItem-Mobile": this.isMobile && !this.landscape,
+          "App-MatterItem-Landscape": this.isMobile && this.landscape,
+          "App-MatterItem-PC": !this.isMobile
+        })}>
+          <MatterItemList title="事项" />
         </div>
-        <div className="App-right">
-          <div className="App-right-top">
-            <div className={group({
-              "App-right-top-top": ratio < 2,
-              "App-right-top-left-top": ratio >= 2
-            })}>
-              <Diary />
-            </div>
-            <div className={group({
-              "App-right-top-bottom-left": ratio < 2,
-              "App-right-top-left-bottom": ratio >= 2
-            })}>
-              <Gallery />
-            </div>
-            <div className={group({
-              "App-right-top-bottom-right": ratio < 2,
-              "App-right-top-right": ratio >= 2
-            })}>
-              <Canvas3D />
-            </div>
-          </div>
-          <div className="App-right-bottom">
-            <HandleBar />
-          </div>
+
+        <div className={group({
+          "App-MatterPeople-Mobile": this.isMobile && !this.landscape,
+          "App-MatterPeople-Landscape": this.isMobile && this.landscape,
+          "App-MatterPeople-PC": !this.isMobile
+        })}>
+          <MatterPeopleList title="参与人物" />
         </div>
+
+        <div className={group({
+          "App-Diary-Mobile": this.isMobile && !this.landscape,
+          "App-Diary-Landscape": this.isMobile && this.landscape,
+          "App-Diary-PC-16-9": !this.isMobile && ratio >= 2,
+          "App-Diary-PC-1-1": !this.isMobile && ratio < 2
+        })}>
+          <Diary />
+        </div>
+
+        <div className={group({
+          "App-Gallery-Mobile": this.isMobile && !this.landscape,
+          "App-Gallery-Landscape": this.isMobile && this.landscape,
+          "App-Gallery-PC": !this.isMobile
+        })}>
+          <Gallery />
+        </div>
+
+        <div className={group({
+          "App-Canvas3D-Mobile": this.isMobile && !this.landscape,
+          "App-Canvas3D-Landscape": this.isMobile && this.landscape,
+          "App-Canvas3D-PC-16-9": !this.isMobile && ratio >= 2,
+          "App-Canvas3D-PC-1-1": !this.isMobile && ratio < 2
+        })}>
+          <Canvas3D />
+        </div>
+
+
+        <div className={group({
+          "App-HandleBar-Mobile": this.isMobile && !this.landscape,
+          "App-HandleBar-Landscape": this.isMobile && this.landscape,
+          "App-HandleBar-PC": !this.isMobile
+        })}>
+          <HandleBar />
+        </div>
+
       </div>
     );
   }

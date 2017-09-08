@@ -1,0 +1,13 @@
+.App-MatterPeople-PC {
+    overflow: auto;
+    padding: 1em;
+    color: whitesmoke;
+    background-image: linear-gradient(to bottom, #333, #555);
+}
+
+.App-MatterPeople-PC {
+    width: 300px;
+    height: calc((100% - 200px) / 2);
+    left: 0;
+    bottom: 0;
+}

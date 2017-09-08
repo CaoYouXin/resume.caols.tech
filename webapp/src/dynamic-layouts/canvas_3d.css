@@ -1,0 +1,13 @@
+.App-Canvas3D-PC-16-9 {
+    width: calc((100% - 300px) / 2);
+    height: calc(100% - 250px);
+    bottom: 50px;
+    right: 0;
+}
+
+.App-Canvas3D-PC-1-1 {
+    width: calc((100% - 300px) / 2);
+    height: calc((100% - 250px) / 2);
+    bottom: 50px;
+    right: 0;
+}

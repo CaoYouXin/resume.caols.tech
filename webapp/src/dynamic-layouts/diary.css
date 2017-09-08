@@ -1,0 +1,22 @@
+.App-Diary-PC-16-9,
+.App-Diary-PC-1-1 {
+    color: blanchedalmond;
+    text-shadow: 1px 1px 3px rebeccapurple;
+    padding: 1em;
+    background-image: linear-gradient(to bottom, #bbb, #cfcfcf);
+    overflow: auto;
+}
+
+.App-Diary-PC-16-9 {
+    width: calc((100% - 300px) / 2);
+    height: calc((100% - 250px) / 2);
+    top: 200px;
+    left: 300px;
+}
+
+.App-Diary-PC-1-1 {
+    width: calc(100% - 300px);
+    height: calc((100% - 250px) / 2);
+    top: 200px;
+    left: 300px;
+}

@@ -1,0 +1,10 @@
+.App-Gallery-PC {
+    overflow: auto;
+}
+
+.App-Gallery-PC {
+    width: calc((100% - 300px) / 2);
+    height: calc((100% - 250px) / 2);
+    bottom: 50px;
+    left: 300px;
+}
