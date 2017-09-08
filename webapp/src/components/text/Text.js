@@ -27,6 +27,9 @@ class Text extends Component {
       this.props.removeInterval(this.interval);
       this.setState({ active: false });
       this.audioEl.pause();
+
+      let finishedFn = this.props.finished || (() => { });
+      finishedFn();
       return;
     }
 
@@ -37,10 +40,24 @@ class Text extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.text && prevProps.text !== this.props.text) {
+      this.props.removeInterval(this.interval);
+      this.audioEl.stop();
+      this.setState({
+        text: '',
+        index: 0,
+        active: true
+      });
+      this.interval = this.props.addInterval(this.tick.bind(this), 100);
+      this.audioEl.play();
+    }
+  }
+
   render() {
     return (
       <div>
-        <audio loop ref={audio => { this.audioEl = audio }} src={BgMusic}></audio>
+        <audio loop ref={(audio) => { this.audioEl = audio }} src={BgMusic}></audio>
         <div ref={activeText => { this.activeTextEl = activeText }}
           className={group({
             "active": this.state.active

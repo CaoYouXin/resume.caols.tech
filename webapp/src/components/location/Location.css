@@ -7,5 +7,12 @@
 }
 
 .location {
-    font-weight: bolder;
+    font-weight: bold;
+    transform-origin: 0 50% 0;
+    transform: scale(1);
+    transition: transform 2s;
+}
+
+.location.init {
+    transform: scale(3);
 }

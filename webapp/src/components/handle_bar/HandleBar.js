@@ -19,9 +19,13 @@ export default connect(
   }),
   (dispatch) => ({
     clicked: () => {
+      // dispatch({
+      //   type: 'TIME_HEADER_STATUS',
+      //   status: Math.random() < 0.5 ? 'stopped' : 'going'
+      // });
       dispatch({
-        type: 'TIME_HEADER_STATUS',
-        status: Math.random() < 0.5 ? 'stopped' : 'going'
+        type: 'LOCATION_CHANGE',
+        location: Math.random().toFixed(2)
       });
     }
   })
