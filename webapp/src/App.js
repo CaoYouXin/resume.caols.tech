@@ -37,18 +37,55 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.rerender = this.rerender.bind(this);
+
+    let UA = window.navigator.userAgent,
+      isAndroid = /android|adr/gi.test(UA),
+      isIos = /iphone|ipod|ipad/gi.test(UA) && !isAndroid; // 据说某些国产机的UA会同时包含 android iphone 字符
+
+    this.isAndroid = isAndroid;
+    this.isMobile = isAndroid || isIos;  // 粗略的判断
+    this.lastOrientation = 128;
+  }
+
+  screen() {
+    if (!this.isMobile) {
+      return;
+    }
+
+    if (this.lastOrientation === window['orientation']) {
+      return;
+    }
+    this.lastOrientation = window['orientation'];
+
+    let width = Math.min(window.screen.availWidth, window.screen.availHeight);
+    let height = Math.max(window.screen.availWidth, window.screen.availHeight);
+    if (!window['orientation'] || window['orientation'] === 180 || window['orientation'] === 0) {
+      this.landscape = false;
+      fixScreen(this.isAndroid, 750, width);
+    } else if (window['orientation'] === 90 || window['orientation'] === -90) {
+      this.landscape = true;
+      fixScreen(this.isAndroid, 750 / width * height, height);
+    }
   }
 
   rerender() {
+    this.screen();
     this.forceUpdate();
   }
 
   componentWillMount() {
+    this.screen();
     window.addEventListener('resize', this.rerender);
+    if ("onorientationchange" in window) {
+      window.addEventListener('orientationchange', this.rerender);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.rerender);
+    if ("onorientationchange" in window) {
+      window.removeEventListener('orientationchange', this.rerender);
+    }
   }
 
   render() {
