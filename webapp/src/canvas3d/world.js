@@ -156,7 +156,7 @@ World.prototype.initWorld = function () {
     transparent: true,
     depthTest: false,
     blending: window.THREE.AdditiveBlending,
-    side: window.THREE.DoubleSide
+    // side: window.THREE.DoubleSide
   });
 
   this.world = new window.THREE.Mesh(geometry, material);

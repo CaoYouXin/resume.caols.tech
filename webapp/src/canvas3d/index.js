@@ -1,10 +1,15 @@
 import { World } from './world.js';
 
+let world;
+
 export function init3d(elem) {
-  var world = new World(elem);
+  world = new World(elem);
   world.build();
   world.rotate();
-  // console.log(world);
-
-
 };
+
+export function reset3d() {
+  if (world) {
+    world.reset();
+  }
+}
