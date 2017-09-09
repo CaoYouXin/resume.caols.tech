@@ -5,4 +5,6 @@ export function init3d(elem) {
   world.build();
   world.rotate();
   // console.log(world);
+
+
 };

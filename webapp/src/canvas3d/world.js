@@ -79,6 +79,15 @@ World.prototype.initScene = function () {
   this.scene = new window.THREE.Scene();
 }
 
+World.prototype.reset = function () {
+  let longitude = -116.46 / 180 * Math.PI;
+  let latitude = 39.92 / 180 * Math.PI;
+  this.camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
+  this.camera.lookAt(new window.THREE.Vector3(0, 0, 0));
+
+  this.world.rotation.y = 0;
+}
+
 World.prototype.initCamera = function () {
   var container = this.container;
   var CONST = this.constObj;
@@ -91,7 +100,9 @@ World.prototype.initCamera = function () {
     CONST.FAR_CLIPPING_PLANE
   );
   //相机坐标
-  camera.position.set(0, 0, 3);
+  let longitude = -116.46 / 180 * Math.PI;
+  let latitude = 39.92 / 180 * Math.PI;
+  camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
   camera.lookAt(new window.THREE.Vector3(0, 0, 0));
 
   this.camera = camera;
@@ -143,8 +154,9 @@ World.prototype.initWorld = function () {
     vertexShader: vertexShader,
     fragmentShader: fragmentShader,
     transparent: true,
-    blending: window.THREE.AdditiveBlending,
     depthTest: false,
+    blending: window.THREE.AdditiveBlending,
+    side: window.THREE.DoubleSide
   });
 
   this.world = new window.THREE.Mesh(geometry, material);
@@ -157,11 +169,11 @@ World.prototype.initSepher = function () {
   this.scene.add(new window.THREE.Mesh(
     new window.THREE.SphereGeometry(CONST.WORLD_RADIUS - 0.01, CONST.GLOBE_RESOLUTION, CONST.GLOBE_RESOLUTION),
     new window.THREE.MeshBasicMaterial({
-      color: "#00F",
-      // transparent: true,
-      // opacity: 0.5,
-      // blending: window.THREE.AdditiveBlending,
-      // depthTest: false,
+      color: "#00f",
+      transparent: true,
+      opacity: 0.1,
+      blending: window.THREE.AdditiveBlending,
+      depthTest: false,
     })
   ));
 }
@@ -177,6 +189,7 @@ World.prototype.build = function () {
   this.initWorld();
   this.initSepher();
   this.initControls();
+  this.reset();
 }
 
 World.prototype.rotate = function () {
