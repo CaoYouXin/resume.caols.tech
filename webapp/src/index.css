@@ -4,7 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Hiragino Sans GB", "Microsoft Yahei", "Ubuntu", monospace;
+    font-family: "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", monospace;
 }
 
 code {
