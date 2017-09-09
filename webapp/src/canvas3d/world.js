@@ -77,6 +77,7 @@ World.prototype.initScene = function () {
 }
 
 World.prototype.reset = function () {
+  //相机坐标
   let longitude = -116.46 / 180 * Math.PI;
   let latitude = 39.92 / 180 * Math.PI;
   this.camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
@@ -96,11 +97,6 @@ World.prototype.initCamera = function () {
     CONST.NEAR_CLIPPING_PLANE,
     CONST.FAR_CLIPPING_PLANE
   );
-  //相机坐标
-  let longitude = -116.46 / 180 * Math.PI;
-  let latitude = 39.92 / 180 * Math.PI;
-  camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
-  camera.lookAt(new window.THREE.Vector3(0, 0, 0));
 
   this.camera = camera;
 
@@ -122,8 +118,8 @@ World.prototype.sprite = function () {
     canvas.width / 2
   );
   gradient.addColorStop(0, 'rgba(230,215,12,1)');
-  gradient.addColorStop(0.2, 'rgba(220,200,11,1)');
-  gradient.addColorStop(0.32, 'rgba(200,280,9,.8)');
+  gradient.addColorStop(0.1, 'rgba(220,200,11,1)');
+  gradient.addColorStop(0.22, 'rgba(200,280,9,.8)');
   gradient.addColorStop(1, 'rgba(220,250,25,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);

@@ -9,7 +9,7 @@ export function init3d(elem) {
 };
 
 export function reset3d() {
-  if (world) {
+  if (world && typeof world.reset === 'function') {
     world.reset();
   }
 }
