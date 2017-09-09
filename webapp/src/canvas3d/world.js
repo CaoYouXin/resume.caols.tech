@@ -6,6 +6,7 @@ uniform float u_r;
 uniform float u_pi;
 
 varying vec2 v_uv;
+varying vec2 v_uv2;
 
 void main() {
   
@@ -14,29 +15,8 @@ void main() {
 
   gl_PointSize = u_ps;
 
-  v_uv.y = asin(position.y / u_r);
-
-  float r = u_r * cos(v_uv.y);
-  float asinV = asin(position.z / r);
-  float acosV = acos(position.x / r);
-
-  if (position.z > 0.0) {
-    if (position.x > 0.0) {
-      v_uv.x = asinV;
-    } else {
-      v_uv.x = acosV;
-    }
-  } else {
-    if (position.x > 0.0) {
-      v_uv.x = asinV + 2.0 * u_pi;
-    } else {
-      v_uv.x = 2.0 * u_pi - acosV;
-    }
-  }
-
-  v_uv.x = v_uv.x / 2.0 / u_pi;
-  v_uv.x = 1.0 - v_uv.x;
-  v_uv.y = (v_uv.y + u_pi / 2.0) / u_pi;
+  v_uv = uv;
+  v_uv2 = uv * 156.0;
 }
 `;
 
@@ -45,14 +25,19 @@ uniform sampler2D u_ball_tex;
 uniform sampler2D u_particle_tex;
 
 varying vec2 v_uv;
+varying vec2 v_uv2;
 
 void main() {
   vec4 color = texture2D(u_ball_tex, v_uv);
   
   if (color.r == 0.0) {
-    discard;
+    gl_FragColor = vec4(0.1, 0.2, 0.9, 0.0);
   } else {
-    gl_FragColor = texture2D( u_particle_tex, vec2( gl_PointCoord.x, 1.0 - gl_PointCoord.y ));
+    vec4 particle_color = texture2D(u_particle_tex, v_uv2);
+    if (particle_color.a == 1.0) {
+      particle_color.rgb = vec3(0.0, 0.0, 0.0);
+    }
+    gl_FragColor = particle_color;
   }
 }
 `;
@@ -116,9 +101,10 @@ World.prototype.initCamera = function () {
 
 World.prototype.sprite = function () {
   var canvas = document.createElement('canvas');
+
   canvas.width = 128;
   canvas.height = 128;
-  var ctx = canvas.getContext('2d');
+  var ctx = canvas.getContext('2d', { alpha: true });
   var gradient = ctx.createRadialGradient(
     canvas.width / 2,
     canvas.height / 2,
@@ -139,37 +125,13 @@ World.prototype.sprite = function () {
 World.prototype.initWorld = function () {
   var CONST = this.constObj;
 
-  var geometry = new window.THREE.Geometry();
-  // var count = 0;
-  var uvSupport = {};
-  var step = Math.atan(CONST.PARTICLE_SIZE / CONST.WORLD_RADIUS / 2);
-  step = 2 * Math.PI / Math.ceil(2 * Math.PI / step);
-  for (var i = step - Math.PI / 2; i < Math.PI / 2; i += step) {
-    var radius = Math.cos(i) * CONST.WORLD_RADIUS;
-    var y = Math.sin(i) * CONST.WORLD_RADIUS;
-    uvSupport[y] = (i + Math.PI / 2) / Math.PI;
-    var angle = Math.atan(CONST.PARTICLE_SIZE / radius / 2);
-    angle = 2 * Math.PI / Math.ceil(2 * Math.PI / angle);
-    for (var j = 0; j <= 2 * Math.PI; j += angle) {
-      // count++;
-      geometry.vertices.push(new window.THREE.Vector3(Math.cos(j) * radius, y, Math.sin(j) * radius));
-      geometry.colors.push(new window.THREE.Color(1, 1, 1));
-    }
-  }
-  geometry.vertices.push(new window.THREE.Vector3(0, - CONST.WORLD_RADIUS, 0));
-  geometry.colors.push(new window.THREE.Color(1, 1, 1));
-  geometry.vertices.push(new window.THREE.Vector3(0, CONST.WORLD_RADIUS, 0));
-  geometry.colors.push(new window.THREE.Color(1, 1, 1));
+  var geometry = new window.THREE.SphereGeometry(CONST.WORLD_RADIUS, CONST.GLOBE_RESOLUTION, CONST.GLOBE_RESOLUTION);
 
-  // console.log('count', count + 2);
-  geometry.mergeVertices();
-  geometry.verticesNeedUpdate = true;
-
-  var texture = new window.THREE.CanvasTexture(this.sprite());
+  var texture = new window.THREE.CanvasTexture(this.sprite(),
+    window.THREE.UVMapping, window.THREE.RepeatWrapping, window.THREE.RepeatWrapping,
+    window.THREE.LinearFilter, window.THREE.LinearMipMapLinearFilter,
+    window.THREE.RGBAFormat);
   var planetMap = window.THREE.ImageUtils.loadTexture(texturePath);
-  // planetMap.image.style.position = 'absolute';
-  // planetMap.image.style.top = planetMap.image.style.left = '0';
-  // console.log(this.container.appendChild(planetMap.image));
   var material = new window.THREE.ShaderMaterial({
     uniforms: {
       "u_ps": { value: this.container.offsetHeight / 5 * CONST.PARTICLE_SIZE },
@@ -184,19 +146,24 @@ World.prototype.initWorld = function () {
     blending: window.THREE.AdditiveBlending,
     depthTest: false,
   });
-  this.world = new window.THREE.Points(geometry, material);
+
+  this.world = new window.THREE.Mesh(geometry, material);
   this.scene.add(this.world);
 }
 
 World.prototype.initSepher = function () {
   var CONST = this.constObj;
 
-  var geometry = new window.THREE.SphereGeometry(CONST.WORLD_RADIUS - 0.01, CONST.GLOBE_RESOLUTION, CONST.GLOBE_RESOLUTION);
-  geometry.computeTangents();
-  var material = new window.THREE.MeshBasicMaterial({
-    color: "#00F",
-  });
-  this.scene.add(new window.THREE.Mesh(geometry, material));
+  this.scene.add(new window.THREE.Mesh(
+    new window.THREE.SphereGeometry(CONST.WORLD_RADIUS - 0.01, CONST.GLOBE_RESOLUTION, CONST.GLOBE_RESOLUTION),
+    new window.THREE.MeshBasicMaterial({
+      color: "#00F",
+      // transparent: true,
+      // opacity: 0.5,
+      // blending: window.THREE.AdditiveBlending,
+      // depthTest: false,
+    })
+  ));
 }
 
 World.prototype.initControls = function () {
@@ -214,10 +181,10 @@ World.prototype.build = function () {
 
 World.prototype.rotate = function () {
   var self = this;
-  // var CONST = self.constObj;
+  var CONST = self.constObj;
 
   self.renderer.render(self.scene, self.camera);
-  // self.world.rotation.y += CONST.ROTATION_WORLD_RATE;
+  self.world.rotation.y += CONST.ROTATION_WORLD_RATE;
   requestAnimationFrame(function () { self.rotate(); });
 }
 
