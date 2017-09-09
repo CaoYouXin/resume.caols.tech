@@ -34,9 +34,6 @@ void main() {
     gl_FragColor = vec4(0.1, 0.2, 0.9, 0.0);
   } else {
     vec4 particle_color = texture2D(u_particle_tex, v_uv2);
-    if (particle_color.a == 1.0) {
-      particle_color.rgb = vec3(0.0, 0.0, 0.0);
-    }
     gl_FragColor = particle_color;
   }
 }
@@ -125,8 +122,8 @@ World.prototype.sprite = function () {
     canvas.width / 2
   );
   gradient.addColorStop(0, 'rgba(230,215,12,1)');
-  gradient.addColorStop(0.3, 'rgba(220,200,11,1)');
-  gradient.addColorStop(0.52, 'rgba(200,280,9,.2)');
+  gradient.addColorStop(0.2, 'rgba(220,200,11,1)');
+  gradient.addColorStop(0.32, 'rgba(200,280,9,.8)');
   gradient.addColorStop(1, 'rgba(220,250,25,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
