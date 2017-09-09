@@ -125,8 +125,8 @@ World.prototype.sprite = function () {
     canvas.width / 2
   );
   gradient.addColorStop(0, 'rgba(230,215,12,1)');
-  gradient.addColorStop(0.5, 'rgba(220,200,11,1)');
-  gradient.addColorStop(0.72, 'rgba(200,280,9,.2)');
+  gradient.addColorStop(0.3, 'rgba(220,200,11,1)');
+  gradient.addColorStop(0.52, 'rgba(200,280,9,.2)');
   gradient.addColorStop(1, 'rgba(220,250,25,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
