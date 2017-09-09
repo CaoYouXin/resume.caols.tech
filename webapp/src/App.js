@@ -95,6 +95,7 @@ class App extends Component {
       <div className="App">
         <GalleryShow />
 
+
         <div className="App-TimeHeader">
           <TimeHeader />
         </div>
