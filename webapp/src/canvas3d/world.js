@@ -1,6 +1,6 @@
 import texturePath from './Carte de la terre.png';
 
-const vertexShader = `
+const worldVertexShader = `
 uniform float u_ps;
 uniform float u_r;
 uniform float u_pi;
@@ -20,7 +20,7 @@ void main() {
 }
 `;
 
-const fragmentShader = `
+const worldFragmentShader = `
 uniform sampler2D u_ball_tex;
 uniform sampler2D u_particle_tex;
 
@@ -46,6 +46,7 @@ function World(elem) {
   this.camera = null;
   this.world = null;
   this.controls = null;
+  this.cursor = null;
 
   //常量
   this.constObj = {
@@ -74,16 +75,6 @@ World.prototype.initRender = function () {
 
 World.prototype.initScene = function () {
   this.scene = new window.THREE.Scene();
-}
-
-World.prototype.reset = function () {
-  //相机坐标
-  let longitude = -116.46 / 180 * Math.PI;
-  let latitude = 39.92 / 180 * Math.PI;
-  this.camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
-  this.camera.lookAt(new window.THREE.Vector3(0, 0, 0));
-
-  this.world.rotation.y = 0;
 }
 
 World.prototype.initCamera = function () {
@@ -144,8 +135,8 @@ World.prototype.initWorld = function () {
       "u_ball_tex": { type: 't', value: planetMap },
       "u_particle_tex": { type: 't', value: texture }
     },
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
+    vertexShader: worldVertexShader,
+    fragmentShader: worldFragmentShader,
     transparent: true,
     depthTest: false,
     blending: window.THREE.AdditiveBlending,
@@ -175,6 +166,17 @@ World.prototype.initControls = function () {
   this.controls = new window.THREE.OrbitControls(this.camera, this.renderer.domElement);
 }
 
+World.prototype.reset = function () {
+  //相机坐标
+  let longitude = -116.46 / 180 * Math.PI;
+  let latitude = 39.92 / 180 * Math.PI;
+  this.camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
+  // this.camera.position.set(0, 0, 3);
+  this.camera.lookAt(new window.THREE.Vector3(0, 0, 0));
+
+  this.world.rotation.y = 0;
+}
+
 World.prototype.build = function () {
   this.initRender();
   this.initScene();
@@ -185,12 +187,53 @@ World.prototype.build = function () {
   this.reset();
 }
 
-World.prototype.rotate = function () {
-  var self = this;
-  var CONST = self.constObj;
+World.prototype.initCursor = function () {
+  if (this.cursor) {
+    return;
+  }
 
+  this.cursor = new window.THREE.Mesh(
+    new window.THREE.RingBufferGeometry(0.05, 0.1, 32, 1, 0, 2 * Math.PI),
+    new window.THREE.MeshBasicMaterial({ color: "#9988FF" })
+  )
+
+  this.cursor.position.set(0, 0, this.constObj.WORLD_RADIUS);
+  this.scene.add(this.cursor);
+
+  const cursor = this.cursor;
+  this.tween = new window.TWEEN.Tween({ scale: 1 }) // start values
+    .to({ scale: 0.1 }, 512) // end values and time
+    .easing(window.TWEEN.Easing.Linear.None)
+    .onUpdate(function () {
+      cursor.scale.y = cursor.scale.x = this.scale;
+    })
+    .repeat(Infinity)
+    .yoyo(true)
+    .start();
+  console.log(window.TWEEN, this.tween);
+}
+
+World.prototype.setCursor = function (longitude, latitude) {
+  this.initCursor();
+  var CONST = this.constObj;
+
+  longitude = longitude / 180 * Math.PI;// - this.world.rotate.y;
+  latitude = latitude / 180 * Math.PI;
+  this.cursor.position.y = Math.sin(latitude) * CONST.WORLD_RADIUS;
+
+  var r = Math.cos(latitude) * CONST.WORLD_RADIUS;
+  this.cursor.position.x = Math.cos(longitude) * r;
+  this.cursor.position.z = Math.sin(longitude) * r;
+
+  this.cursor.rotation.y = 0 - longitude + Math.PI / 2;
+  this.cursor.rotation.x = latitude;
+}
+
+World.prototype.rotate = function () {
+  window.TWEEN.update();
+
+  var self = this;
   self.renderer.render(self.scene, self.camera);
-  self.world.rotation.y += CONST.ROTATION_WORLD_RATE;
   requestAnimationFrame(function () { self.rotate(); });
 }
 
