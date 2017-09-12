@@ -18,11 +18,11 @@
 }
 
 .button.next {
-    background: transparent url("_forward.png") no-repeat;
+    background: transparent url("normal_forward.png") no-repeat;
     background-size: contain;
 }
 
 .button.next:hover {
-    background: transparent url("forward.png") no-repeat;
+    background: transparent url("hover_forward.png") no-repeat;
     background-size: contain;
 }
