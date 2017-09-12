@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./HandleBar.css";
 import { connect } from 'react-redux';
 import { group } from '../../utils';
-import { reset3d, setCursor } from '../../canvas3d';
 
 class HandleBar extends Component {
   render() {
@@ -28,8 +27,11 @@ export default connect(
       //   type: 'LOCATION_CHANGE',
       //   location: Math.random().toFixed(2)
       // });
-      reset3d();
-      setCursor(-116.46, 39.92);
+      dispatch({
+        type: 'CURSOR_COORD_CHANGE',
+        lontitude: -116.46,
+        latitude: 39.92
+      });
     }
   })
 )(HandleBar);

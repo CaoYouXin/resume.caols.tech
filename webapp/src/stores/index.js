@@ -10,6 +10,7 @@ import time_header from './time_header';
 import gallery_show from './gallery_show';
 import diary from './diary';
 import location from './location';
+import cursor_coord from './cursor_coord';
 
 export const configStore = () => {
   let middlewares = [thunk];
@@ -24,7 +25,8 @@ export const configStore = () => {
     time_header,
     gallery_show,
     diary,
-    location
+    location,
+    cursor_coord
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 
   store.subscribe(throttle(() => {

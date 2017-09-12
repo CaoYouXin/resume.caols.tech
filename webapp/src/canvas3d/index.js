@@ -1,22 +1,52 @@
-import { World } from './world.js';
+const THREE = window.THREE;
 
-let world;
+export class Canvas3D {
+  constructor(elem) {
+    this.container = elem;
+    this.renderer = null;
+    this.scenes = {};
+    this.currentScene = null;
 
-export function init3d(elem) {
-  world = new World(elem);
-  world.build();
-  world.rotate();
-  console.log(world);
-};
+    this.initRenderer();
+  }
 
-export function reset3d() {
-  if (world && typeof world.reset === 'function') {
-    world.reset();
+  initRenderer() {
+    var container = this.container;
+    var renderer = null;
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+
+    this.renderer = renderer;
+    this.container.appendChild(this.renderer.domElement);
+  }
+
+  setupScene(name, starter, ender, retObj, override) {
+    var prevScene = this.scenes[name];
+    if (prevScene && !override) {
+      throw new Error('scene [' + name + '] cannot be override.');
+    }
+
+    this.scenes[name] = {
+      name,
+      starter,
+      ender,
+      retObj
+    };
+  }
+
+  startScene(name) {
+    var currentScene = this.currentScene;
+    if (currentScene) {
+      currentScene.ender(this.renderer);
+    }
+
+    currentScene = this.scenes[name];
+    currentScene.starter(this.renderer);
+
+    this.currentScene = currentScene;
+    return currentScene.retObj;
   }
 }
 
-export function setCursor(longitude, latitude) {
-  if (world && typeof world.setCursor === 'function') {
-    world.setCursor(longitude, latitude);
-  }
-}
+export * from './p_world';
