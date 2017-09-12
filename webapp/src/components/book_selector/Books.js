@@ -13,7 +13,16 @@ class BooksComponent extends Component {
         <h1 className={group({
           "toTheLeft": landscape
         })}>曹力升的日记簿</h1>
+        <div className={group({
+          "toTheRight": landscape
+        })}>
+          <div className="search v-mid-box">
+            <input type="search" placeholder="请输入要搜索的日记簿名称..." />
+          </div>
+          <div className="books">
 
+          </div>
+        </div>
       </div>
     );
   }

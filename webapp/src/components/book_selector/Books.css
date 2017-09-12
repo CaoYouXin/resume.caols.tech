@@ -23,3 +23,53 @@
     width: 1em;
     line-height: 2em;
 }
+
+.toTheRight {
+    position: absolute;
+    top: 50px;
+    left: 365px;
+    overflow: hidden;
+}
+
+.search {
+    width: 360px;
+    height: 50px;
+    margin: 50px auto 0;
+    box-shadow: inset 0 0 5px bisque;
+    border: solid 1px wheat;
+    background: #454545;
+}
+
+.search>input[type="search"] {
+    outline: none;
+    border: none;
+    width: 350px;
+    height: 40px;
+    background: transparent;
+    color: #F7F336;
+    font-size: x-large;
+}
+
+.books {
+    width: 360px;
+    height: 400px;
+    margin: 0 auto;
+    /* border-radius: 10px; */
+    box-shadow: inset 0 0 10px bisque;
+    border: solid 1px wheat;
+    background: #454545;
+    overflow: auto;
+}
+
+.books::-webkit-scrollbar {
+    width: 1em;
+}
+
+.books::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.books::-webkit-scrollbar-thumb {
+    background-color: bisque;
+    outline: 1px solid wheat;
+}
