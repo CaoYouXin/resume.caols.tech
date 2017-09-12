@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Books.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
+import * as Ps from 'perfect-scrollbar';
+import Scrollbar from 'smooth-scrollbar';
 
 class BooksComponent extends Component {
   render() {
@@ -19,12 +21,44 @@ class BooksComponent extends Component {
           <div className="search v-mid-box">
             <input type="search" placeholder="请输入要搜索的日记簿名称..." />
           </div>
-          <div className="books">
-
+          <div ref={(books) => { this.booksEl = books }} className="books">
+            <p>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </p>
           </div>
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    Scrollbar.init(this.booksEl);
   }
 }
 
