@@ -11,24 +11,19 @@ import Gallery from "./components/gallery/Gallery";
 import GalleryShow from "./components/gallery_show/GalleryShow";
 import Canvas3D from "./components/canvas/Canvas3D";
 import Diary from "./components/diary/Diary";
+import BookSelector from "./components/book_selector/Books";
 import { group, fixScreen } from './utils';
 
 const MatterItemList = connect(
   (store) => ({
-    items: [
-      '你好！可以试试多开',
-      '音频，然后延时播放。比如说在10ms时播放第二个音频'
-    ]
+    items: []
   }),
   (dispatch) => ({})
 )(List);
 
 const MatterPeopleList = connect(
   (store) => ({
-    items: [
-      'XXX',
-      'YYY'
-    ]
+    items: []
   }),
   (dispatch) => ({})
 )(List);
@@ -94,7 +89,7 @@ class App extends Component {
     return (
       <div className="App">
         <GalleryShow />
-
+        <BookSelector />
 
         <div className="App-TimeHeader">
           <TimeHeader />
