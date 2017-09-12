@@ -35,7 +35,7 @@ class DiaryComponent extends Component {
     return (
       <div className="diary-wrapper">
         {
-          contents && contents.length && contents.slice(0, length).map((content, idx) => {
+          contents && contents.length > 0 && contents.slice(0, length).map((content, idx) => {
             return (
               <div key={md5(content)} className="diary-paragraph">
                 <Text text={content} finished={this.next} />

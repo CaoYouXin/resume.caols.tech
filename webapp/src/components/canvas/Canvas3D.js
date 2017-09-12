@@ -16,7 +16,9 @@ class Canvas3DComponent extends Component {
     this.handles = this.canvas3D.startScene("particle_world");
 
     let coord = this.props.coord;
-    this.handles.setCoord(coord.lontitude, coord.latitude);
+    if (coord.lontitude !== null && coord.latitude !== null) {
+      this.handles.setCoord(coord.lontitude, coord.latitude);
+    }
   }
 
   componentDidUpdate(prevProps) {

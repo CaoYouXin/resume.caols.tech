@@ -8,7 +8,7 @@ export const p_world_params = () => {
     (renderer) => {
       world.initCamera(renderer.domElement);
       world.initControls(renderer.domElement);
-      world.reset();
+      world.reset(-116.46, 39.92);
       world.looping = true;
       world.animate(renderer);
     },
