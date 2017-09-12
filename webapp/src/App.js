@@ -62,6 +62,7 @@ class App extends Component {
       this.landscape = true;
       fixScreen(this.isAndroid, 750 / width * height, height);
     }
+    this.props.changeLandscapeStatus(this.landscape);
   }
 
   rerender() {
@@ -166,4 +167,14 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  (dispatch) => ({
+    changeLandscapeStatus: (status) => {
+      dispatch({
+        type: "APP_LANDSCAPE_CHANGE",
+        status
+      });
+    }
+  })
+)(App);

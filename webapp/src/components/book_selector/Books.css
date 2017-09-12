@@ -17,3 +17,9 @@
     margin-top: 198px;
     color: wheat;
 }
+
+.books-wrapper>h1.toTheLeft {
+    margin: 100px 0 0 200px;
+    width: 1em;
+    line-height: 2em;
+}
