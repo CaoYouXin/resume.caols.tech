@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import './Books.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
-import * as Ps from 'perfect-scrollbar';
 import Scrollbar from 'smooth-scrollbar';
 
 class BooksComponent extends Component {
+  componentDidMount() {
+    this.booksSB = Scrollbar.init(this.booksEl);
+  }
+
   render() {
     let { show, landscape } = this.props;
     return (
@@ -55,10 +58,6 @@ class BooksComponent extends Component {
         </div>
       </div>
     );
-  }
-
-  componentDidMount() {
-    Scrollbar.init(this.booksEl);
   }
 }
 
