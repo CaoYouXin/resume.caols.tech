@@ -12,8 +12,8 @@ class Canvas3DComponent extends Component {
 
   componentDidMount() {
     this.canvas3D = new Canvas3D(this.containerEl);
-    this.canvas3D.setupScene.apply(this.canvas3D, p_world_params().concat([false]));
-    this.handles = this.canvas3D.startScene('particle_world');
+    this.canvas3D.setupScene.apply(this.canvas3D, ["particle_world", ...p_world_params(), false]);
+    this.handles = this.canvas3D.startScene("particle_world");
 
     let coord = this.props.coord;
     this.handles.setCoord(coord.lontitude, coord.latitude);

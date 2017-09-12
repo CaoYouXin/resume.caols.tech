@@ -144,10 +144,10 @@ World.prototype.destroyControls = function () {
   }
 }
 
-World.prototype.reset = function () {
+World.prototype.reset = function (longitude, latitude) {
   //相机坐标
-  let longitude = -116.46 / 180 * Math.PI;
-  let latitude = 39.92 / 180 * Math.PI;
+  longitude = longitude / 180 * Math.PI;
+  latitude = latitude / 180 * Math.PI;
   this.camera.position.set(3 * Math.cos(longitude), 3 * Math.sin(latitude), 3 * Math.sin(longitude));
   // this.camera.position.set(0, 0, 3);
   this.camera.lookAt(new THREE.Vector3(0, 0, 0));

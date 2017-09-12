@@ -5,7 +5,6 @@ world.build();
 
 export const p_world_params = () => {
   return [
-    "particle_world",
     (renderer) => {
       world.initCamera(renderer.domElement);
       world.initControls(renderer.domElement);
@@ -19,7 +18,7 @@ export const p_world_params = () => {
     },
     {
       setCoord: (longtitude, latitude) => {
-        world.reset();
+        world.reset(longtitude, latitude);
         world.setCursor(longtitude, latitude);
       }
     }
