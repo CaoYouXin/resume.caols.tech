@@ -11,6 +11,7 @@ import gallery_show from './gallery_show';
 import diary from './diary';
 import location from './location';
 import cursor_coord from './cursor_coord';
+import book_selector from './book_selector';
 
 export const configStore = () => {
   let middlewares = [thunk];
@@ -26,7 +27,8 @@ export const configStore = () => {
     gallery_show,
     diary,
     location,
-    cursor_coord
+    cursor_coord,
+    book_selector
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 
   store.subscribe(throttle(() => {
