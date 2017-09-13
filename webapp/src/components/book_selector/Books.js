@@ -48,7 +48,7 @@ class BooksComponent extends Component {
         <div className={group({
           "toTheRight": landscape
         })}>
-          <div className="search v-mid-box">
+          <div className="books-search v-mid-box">
             <input type="search" placeholder="请输入要搜索的日记簿名称..."
               ref={(input) => { this.inputEl = input }} onKeyUp={this.keyUp} />
           </div>
