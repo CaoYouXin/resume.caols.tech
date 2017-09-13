@@ -13,6 +13,7 @@ import location from './location';
 import cursor_coord from './cursor_coord';
 import book_selector from './book_selector';
 import app_landscape from './app_landscape';
+import item_selector from './item_selector';
 
 export const configStore = () => {
   let middlewares = [thunk];
@@ -30,7 +31,8 @@ export const configStore = () => {
     location,
     cursor_coord,
     book_selector,
-    app_landscape
+    app_landscape,
+    item_selector
   }), fromLocalStorage(), applyMiddleware(...middlewares));
 
   store.subscribe(throttle(() => {

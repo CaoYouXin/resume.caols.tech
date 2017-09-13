@@ -1,6 +1,6 @@
-export default (state = false, action) => {
+export default (state = true, action) => {
   switch (action.type) {
-    case "BOOK_SELECTOR_SHOW":
+    case "ITEM_SELECTOR_SHOW":
       return action.show;
     default:
       return state;

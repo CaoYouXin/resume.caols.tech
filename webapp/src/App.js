@@ -12,6 +12,7 @@ import GalleryShow from "./components/gallery_show/GalleryShow";
 import Canvas3D from "./components/canvas/Canvas3D";
 import Diary from "./components/diary/Diary";
 import BookSelector from "./components/book_selector/Books";
+import ItemSelector from "./components/item_selector/Items";
 import { group, fixScreen } from './utils';
 
 const MatterItemList = connect(
@@ -91,6 +92,7 @@ class App extends Component {
       <div className="App">
         <GalleryShow />
         <BookSelector />
+        <ItemSelector />
 
         <div className="App-TimeHeader">
           <TimeHeader />

@@ -39,7 +39,8 @@ class BooksComponent extends Component {
     books = books.filter(book => !search || book.title.indexOf(search) !== -1);
     return (
       <div className={group({
-        "show": show
+        "show": show,
+        "landscape": landscape
       }, "books-wrapper")}>
         <h1 className={group({
           "toTheLeft": landscape
