@@ -1,7 +1,7 @@
 .books-wrapper {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 200%;
     z-index: 1;
     background: linear-gradient(to bottom, #91521D 0%, #74371D 200px, #AE5B24 100%);
     overflow: hidden;
@@ -59,4 +59,42 @@
     border: solid 1px wheat;
     background: #454545;
     overflow: auto;
+}
+
+.book {
+    width: 100%;
+    height: 4em;
+    line-height: 2em;
+    overflow: hidden;
+    padding: 0 1em;
+}
+
+.book:nth-child(3n + 1) {
+    color: #0066CC;
+    background-image: linear-gradient(to bottom, #B3E22E, #A9BE1F);
+}
+
+.book:nth-child(3n + 1):hover,
+.book:nth-child(3n + 1):active {
+    background-image: linear-gradient(to bottom, #B3E22E, #B3E22E);
+}
+
+.book:nth-child(3n + 2) {
+    color: #333300;
+    background-image: linear-gradient(to bottom, #F4D113, #F0B800);
+}
+
+.book:nth-child(3n + 2):hover,
+.book:nth-child(3n + 2):active {
+    background-image: linear-gradient(to bottom, #F4D113, #F4D113);
+}
+
+.book:nth-child(3n) {
+    color: whitesmoke;
+    background-image: linear-gradient(to bottom, #2AC1EE, #0EA0DB);
+}
+
+.book:nth-child(3n):hover,
+.book:nth-child(3n):active {
+    background-image: linear-gradient(to bottom, #2AC1EE, #2AC1EE);
 }

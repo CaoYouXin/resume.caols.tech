@@ -10,6 +10,15 @@ export class Canvas3D {
     this.initRenderer();
   }
 
+  resizeRenderer(elem) {
+    this.renderer.setSize(elem.offsetWidth, elem.offsetHeight);
+
+    var currentScene = this.currentScene;
+    if (currentScene && currentScene.retObj.resize) {
+      currentScene.retObj.resize(elem);
+    }
+  }
+
   initRenderer() {
     var container = this.container;
     var renderer = null;

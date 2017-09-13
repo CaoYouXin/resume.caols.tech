@@ -69,6 +69,11 @@ World.prototype.initCamera = function (container) {
   this.scene.add(this.camera);
 }
 
+World.prototype.resizeCamera = function (container) {
+  this.camera.aspect = container.offsetWidth / container.offsetHeight;
+  this.camera.updateProjectionMatrix();
+}
+
 World.prototype.sprite = function () {
   var canvas = document.createElement('canvas');
 

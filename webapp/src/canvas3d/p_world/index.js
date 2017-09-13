@@ -20,6 +20,9 @@ export const p_world_params = () => {
       setCoord: (longtitude, latitude) => {
         world.reset(longtitude, latitude);
         world.setCursor(longtitude, latitude);
+      },
+      resize: (elem) => {
+        world.resizeCamera(elem);
       }
     }
   ];

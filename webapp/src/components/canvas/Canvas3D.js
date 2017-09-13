@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { Canvas3D, p_world_params } from '../../canvas3d';
 
 class Canvas3DComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.handleResize = this.handleResize.bind(this);
+  }
+
   render() {
     return (
       <div ref={(container) => { this.containerEl = container }} className="canvas-wrapper"></div>
@@ -18,6 +23,22 @@ class Canvas3DComponent extends Component {
     let coord = this.props.coord;
     if (coord.lontitude !== null && coord.latitude !== null) {
       this.handles.setCoord(coord.lontitude, coord.latitude);
+    }
+
+    window.addEventListener('resize', this.handleResize);
+    if ("onorientationchange" in window) {
+      window.addEventListener('orientationchange', this.handleResize);
+    }
+  }
+
+  handleResize() {
+    this.canvas3D.resizeRenderer(this.containerEl);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    if ("onorientationchange" in window) {
+      window.removeEventListener('orientationchange', this.handleResize);
     }
   }
 
