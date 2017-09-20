@@ -3,6 +3,7 @@ import './Books.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
 import Scrollbar from 'smooth-scrollbar';
+import { fetchBooks, fetchPages } from '../../actions';
 
 class BooksComponent extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class BooksComponent extends Component {
 
   componentDidMount() {
     this.booksSB = Scrollbar.init(this.booksEl);
+    this.props.fetch();
   }
 
   componentWillUpdate() {
@@ -36,7 +38,7 @@ class BooksComponent extends Component {
   render() {
     let { show, landscape, books, open } = this.props;
     let { search } = this.state;
-    books = books.filter(book => !search || book.title.indexOf(search) !== -1);
+    books = books.filter(book => !search || book.DiaryBookTitle.indexOf(search) !== -1);
     return (
       <div className={group({
         "show": show,
@@ -55,7 +57,7 @@ class BooksComponent extends Component {
           <div ref={(books) => { this.booksEl = books }} className="books">
             {
               books && books.length > 0 && books.map((book) => (
-                <div key={book.title} className="book" onClick={(e) => { open(book) }}>{book.title}</div>
+                <div key={book.DiaryBookTitle} className="book" onClick={(e) => { open(book) }}>{book.DiaryBookTitle}</div>
               ))
             }
           </div>
@@ -69,15 +71,18 @@ export default connect(
   (store) => ({
     show: store.book_selector.status,
     landscape: store.app_landscape,
-    books: [{ title: "工作履历" }, { title: "生活日记" }, { title: "修道日记" }, { title: "工作履历2" }, { title: "生活日记2" }, { title: "修道日记2" }, { title: "生活日记3" }, { title: "修道日记3" }]
+    books: store.book_selector.data
   }),
   (dispatch) => ({
     open: (book) => {
-      alert("即将打开'" + book.title + "'");
-      dispatch({
-        type: "BOOK_SELECTOR_SHOW",
-        show: false
-      });
+      let confirmed = window.confirm("即将打开'" + book.DiaryBookTitle + "', 该日记本有'" + book.DiaryBookPageCount + "'页，如果你玩过《文明》系列游戏，你应该知道这意味着至少要点多少'Next'。");
+
+      if (confirmed) {
+        dispatch(fetchPages(book.DiaryBookId));
+      }
+    },
+    fetch: () => {
+      dispatch(fetchBooks());
     }
   })
 )(BooksComponent);

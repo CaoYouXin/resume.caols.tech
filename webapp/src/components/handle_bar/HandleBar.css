@@ -1,28 +1,42 @@
 .handles-wrapper {
-    height: inherit;
+  height: inherit;
 }
 
 .button {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
-.button:active {
-    width: 40px;
-    height: 40px;
-}
+
+/* .button:active {
+  width: 40px;
+  height: 40px;
+} */
 
 .button.disabled {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
 .button.next {
-    background: transparent url("normal_forward.png") no-repeat;
-    background-size: contain;
+  background: transparent url("./i_next.png") no-repeat;
+  background-size: contain;
 }
 
-.button.next:hover {
-    background: transparent url("hover_forward.png") no-repeat;
-    background-size: contain;
+.button.list {
+  background: transparent url("./i_list.png") no-repeat;
+  background-size: contain;
+}
+
+.button.cancel-all {
+  background: transparent url("./i_cancel_all.png") no-repeat;
+  background-size: contain;
+}
+
+.button:hover {
+  background-color: #DDD;
+}
+
+.button:active {
+  background-color: #EEE;
 }

@@ -3,6 +3,7 @@ import './Items.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
 import Scrollbar from 'smooth-scrollbar';
+import { digest } from '../../actions';
 
 class ItemsComponent extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class ItemsComponent extends Component {
   }
 
   render() {
-    let { landscape, show, items, open } = this.props;
+    let { landscape, show, items, open, idx, data } = this.props;
     let { search } = this.state;
     items = items.filter(item => !search || item.title.indexOf(search) !== -1);
     return (
@@ -40,7 +41,9 @@ class ItemsComponent extends Component {
         <div ref={(items) => { this.itemsEl = items }} className="items">
           {
             items && items.length > 0 && items.map((item) => (
-              <div key={item.title} className="item" onClick={(e) => { open(item) }}>{item.no + " : " + item.title}</div>
+              <div key={item.title} className={group({
+                "selected": idx === item.no - 1
+              }, ["item"])} onClick={(e) => { open(item, idx, data) }}>{item.no + " : " + item.title}</div>
             ))
           }
         </div>
@@ -53,11 +56,45 @@ export default connect(
   (store) => ({
     landscape: store.app_landscape,
     show: store.item_selector.status,
-    items: [{ title: "工作履历工作履历工作履历工作履历工作履历工作履历", no: 1 }, { title: "生活日记", no: 2 }, { title: "修道日记", no: 3 }]
+    idx: store.item_selector.idx,
+    data: store.item_selector.data,
+    items: store.item_selector.data.map((item, i) => {
+      if (item.milestone === null) {
+        if (item.fetchId === null) {
+          return {
+            title: '(终)' + item.title,
+            no: i + 1
+          };
+        } else {
+          return {
+            title: '(始)' + item.title,
+            no: i + 1
+          };
+        }
+      } else {
+        return {
+          title: '(碑)' + item.title + ' ' + item.milestone,
+          no: i + 1
+        }
+      }
+    })
   }),
   (dispatch) => ({
-    open: (item) => {
-      alert("将要打开'" + item.title + "'");
+    open: (item, idx, data) => {
+      if (item.no - 1 === idx) {
+        return;
+      }
+
+      if (item.no - 1 < idx) {
+        dispatch(digest(data.slice(item.no, idx + 1), false));
+      } else {
+        dispatch(digest(data.slice(idx + 1, item.no)));
+      }
+
+      dispatch({
+        type: 'ITEM_IDX_RESET',
+        idx: item.no - 1
+      });
       dispatch({
         type: "ITEM_SELECTOR_SHOW",
         show: false

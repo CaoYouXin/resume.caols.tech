@@ -17,14 +17,14 @@ import { group, fixScreen } from './utils';
 
 const MatterItemList = connect(
   (store) => ({
-    items: []
+    items: store.matter.items
   }),
   (dispatch) => ({})
 )(List);
 
 const MatterPeopleList = connect(
   (store) => ({
-    items: []
+    items: store.matter.peaple
   }),
   (dispatch) => ({})
 )(List);

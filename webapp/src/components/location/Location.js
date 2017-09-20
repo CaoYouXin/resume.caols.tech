@@ -7,12 +7,13 @@ class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      init: false
+      init: false,
+      location: ''
     };
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.location !== this.props.location) {
+    if (nextProps.idx !== this.props.idx) {
       this.setState({
         init: true
       });
@@ -22,20 +23,48 @@ class Location extends Component {
           init: false
         });
       }, 361, this);
+
+      let { items, idx, details } = nextProps;
+      let item = items[idx];
+
+      this.preRender(item, details);
     }
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.location !== this.props.location) {
-  //     this.setState({
-  //       init: false
-  //     });
-  //   }
-  // }
+  componentDidMount() {
+    let { items, idx, details } = this.props;
+    let item = items[idx];
+
+    this.preRender(item, details);
+  }
+
+  preRender(item, details) {
+    if (!item) {
+      this.setState({
+        location: ""
+      });
+      return;
+    }
+
+    let fetchId = item.fetchId || item.secondFetchId;
+    if (fetchId !== null) {
+      let location = !details[fetchId] ? "" : details[fetchId].DiaryPageLocation;
+      this.setState({
+        location
+      });
+
+      this.props.setCoord.apply(null, {
+        "": [-116.46, 39.92],
+        "长沙": [-113, 28.21],
+        "广州": [-113.23, 23.16],
+        "北京": [-116.46, 39.92],
+        "大同": [-113.3, 40.12]
+      }[location]);
+    }
+  }
 
   render() {
-    let { location } = this.props;
-    let { init } = this.state;
+    let { init, location } = this.state;
     return (
       <div className="location-wrapper v-mid-box">
         <span className="location-notation">地点：</span><span className={group({
@@ -48,7 +77,17 @@ class Location extends Component {
 
 export default connect(
   (store) => ({
-    location: store.location
+    items: store.item_selector.data,
+    idx: store.item_selector.idx,
+    details: store.details
   }),
-  (dispatch) => ({})
+  (dispatch) => ({
+    setCoord: (lontitude, latitude) => {
+      dispatch({
+        type: 'CURSOR_COORD_CHANGE',
+        lontitude,
+        latitude
+      });
+    }
+  })
 )(Location);

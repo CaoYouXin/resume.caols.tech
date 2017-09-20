@@ -1,64 +1,73 @@
 .items-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(to bottom, #928377 0%, #6D6460 200px, #A79A92 100%);
-    overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(to bottom, #928377 0%, #6D6460 200px, #A79A92 100%);
+  overflow: hidden;
 }
 
 .items-wrapper.landscape {
-    height: 200%;
+  height: 200%;
 }
 
 .items-wrapper:not(.show) {
-    display: none;
+  display: none;
 }
 
 .items-search {
-    width: 360px;
-    height: 50px;
-    margin: 50px auto 0;
-    box-shadow: inset 0 0 5px bisque;
-    border: solid 1px wheat;
-    background: #454545;
+  width: 360px;
+  height: 50px;
+  margin: 50px auto 0;
+  box-shadow: inset 0 0 5px bisque;
+  border: solid 1px wheat;
+  background: #454545;
 }
 
 .items-search>input[type="search"] {
-    outline: none;
-    border: none;
-    width: 350px;
-    height: 40px;
-    background: transparent;
-    color: #F7F336;
-    font-size: x-large;
+  outline: none;
+  border: none;
+  width: 350px;
+  height: 40px;
+  background: transparent;
+  color: #F7F336;
+  font-size: x-large;
 }
 
 .items {
-    width: 360px;
-    height: calc(100% - 150px);
-    margin: 0 auto;
-    /* border-radius: 10px; */
-    box-shadow: inset 0 0 10px bisque;
-    border: solid 1px wheat;
-    background: #454545;
-    overflow: auto;
+  width: 360px;
+  height: calc(100% - 150px);
+  margin: 0 auto;
+  /* border-radius: 10px; */
+  box-shadow: inset 0 0 10px bisque;
+  border: solid 1px wheat;
+  background: #454545;
+  overflow: auto;
 }
 
 .item {
-    cursor: default;
-    width: 100%;
-    height: 3em;
-    line-height: 3em;
-    background-image: linear-gradient(to bottom, #026161, #21212E);
-    padding: 0 1em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: whitesmoke;
+  cursor: default;
+  width: 100%;
+  height: 3em;
+  line-height: 3em;
+  background-image: linear-gradient(to bottom, #026161, #21212E);
+  padding: 0 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: whitesmoke;
 }
 
 .item:hover,
 .item:active {
-    background-image: linear-gradient(to bottom, #026060, #202010);
+  background-image: linear-gradient(to bottom, #026060, #202010);
+}
+
+.selected.item {
+  background-image: linear-gradient(to bottom, #02649C, #56567C);
+}
+
+.selected.item:hover,
+.selected.item:active {
+  background-image: linear-gradient(to bottom, #0B0260, #373464);
 }

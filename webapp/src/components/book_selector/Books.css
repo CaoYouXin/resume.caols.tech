@@ -1,104 +1,109 @@
 .books-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(to bottom, #91521D 0%, #74371D 200px, #AE5B24 100%);
-    overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(to bottom, #91521D 0%, #74371D 200px, #AE5B24 100%);
+  overflow: hidden;
 }
 
 .books-wrapper.landscape {
-    height: 200%;
+  height: 200%;
 }
 
 .books-wrapper:not(.show) {
-    display: none;
+  display: none;
 }
 
 .books-wrapper>h1 {
-    text-align: center;
-    letter-spacing: 0.5em;
-    margin-top: 198px;
-    color: wheat;
+  text-align: center;
+  letter-spacing: 0.5em;
+  margin-top: 198px;
+  color: wheat;
 }
 
 .books-wrapper>h1.toTheLeft {
-    margin: 100px 0 0 200px;
-    width: 1em;
-    line-height: 2em;
+  margin: 100px 0 0 200px;
+  width: 1em;
+  line-height: 2em;
+}
+
+.books-wrapper>div {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 250px);
 }
 
 .toTheRight {
-    position: absolute;
-    top: 50px;
-    left: 365px;
-    overflow: hidden;
+  top: 50px;
+  left: 365px;
+  overflow: hidden;
 }
 
 .books-search {
-    width: 360px;
-    height: 50px;
-    margin: 50px auto 0;
-    box-shadow: inset 0 0 5px bisque;
-    border: solid 1px wheat;
-    background: #454545;
+  width: 360px;
+  height: 50px;
+  margin: 50px auto 0;
+  box-shadow: inset 0 0 5px bisque;
+  border: solid 1px wheat;
+  background: #454545;
 }
 
 .books-search>input[type="search"] {
-    outline: none;
-    border: none;
-    width: 350px;
-    height: 40px;
-    background: transparent;
-    color: #F7F336;
-    font-size: x-large;
+  outline: none;
+  border: none;
+  width: 350px;
+  height: 40px;
+  background: transparent;
+  color: #F7F336;
+  font-size: x-large;
 }
 
 .books {
-    width: 360px;
-    height: 400px;
-    margin: 0 auto;
-    /* border-radius: 10px; */
-    box-shadow: inset 0 0 10px bisque;
-    border: solid 1px wheat;
-    background: #454545;
-    overflow: auto;
+  width: 360px;
+  height: calc(100% - 200px);
+  margin: 0 auto;
+  /* border-radius: 10px; */
+  box-shadow: inset 0 0 10px bisque;
+  border: solid 1px wheat;
+  background: #454545;
+  overflow: auto;
 }
 
 .book {
-    width: 100%;
-    height: 4em;
-    line-height: 2em;
-    overflow: hidden;
-    padding: 0 1em;
+  width: 100%;
+  height: 4em;
+  line-height: 2em;
+  overflow: hidden;
+  padding: 0 1em;
 }
 
 .book:nth-child(3n + 1) {
-    color: #0066CC;
-    background-image: linear-gradient(to bottom, #B3E22E, #A9BE1F);
+  color: #0066CC;
+  background-image: linear-gradient(to bottom, #B3E22E, #A9BE1F);
 }
 
 .book:nth-child(3n + 1):hover,
 .book:nth-child(3n + 1):active {
-    background-image: linear-gradient(to bottom, #B3E22E, #B3E22E);
+  background-image: linear-gradient(to bottom, #B3E22E, #B3E22E);
 }
 
 .book:nth-child(3n + 2) {
-    color: #333300;
-    background-image: linear-gradient(to bottom, #F4D113, #F0B800);
+  color: #333300;
+  background-image: linear-gradient(to bottom, #F4D113, #F0B800);
 }
 
 .book:nth-child(3n + 2):hover,
 .book:nth-child(3n + 2):active {
-    background-image: linear-gradient(to bottom, #F4D113, #F4D113);
+  background-image: linear-gradient(to bottom, #F4D113, #F4D113);
 }
 
 .book:nth-child(3n) {
-    color: whitesmoke;
-    background-image: linear-gradient(to bottom, #2AC1EE, #0EA0DB);
+  color: whitesmoke;
+  background-image: linear-gradient(to bottom, #2AC1EE, #0EA0DB);
 }
 
 .book:nth-child(3n):hover,
 .book:nth-child(3n):active {
-    background-image: linear-gradient(to bottom, #2AC1EE, #2AC1EE);
+  background-image: linear-gradient(to bottom, #2AC1EE, #2AC1EE);
 }

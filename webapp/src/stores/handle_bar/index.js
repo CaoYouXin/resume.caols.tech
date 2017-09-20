@@ -1,4 +1,4 @@
-export default (state = { status: 'next' }, action) => {
+export default (state = true, action) => {
   switch (action.type) {
     case 'HANDLE_BAR_STATUS':
       return {

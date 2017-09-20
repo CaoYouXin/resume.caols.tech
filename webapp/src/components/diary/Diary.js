@@ -3,13 +3,13 @@ import './Diary.css';
 import { connect } from 'react-redux';
 import Text from '../text/Text';
 import md5 from 'md5';
-import deepequals from 'deep-equal';
 
 class DiaryComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      length: this.props.contents.length ? 1 : 0
+      length: 0,
+      contents: []
     };
     this.next = this.next.bind(this);
   }
@@ -20,17 +20,75 @@ class DiaryComponent extends Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
-    if (!deepequals(prevProps.contents, this.props.contents)) {
+  componentWillUpdate(nextProps) {
+    if (nextProps.idx !== this.props.idx) {
+      let { items, idx, details } = nextProps;
+      let item = items[idx];
+
+      if (!item) {
+        this.setState({
+          contents: [],
+          length: 0
+        });
+        return;
+      }
+
+      if (item.fetchId !== null) {
+        let detail = details[item.fetchId];
+        let contents = detail.DiaryPageContent.split('</p><p>');
+        this.setState({
+          contents,
+          length: contents.length ? 1 : 0
+        });
+      } else if (item.milestone === null) {
+        this.setState({
+          contents: ['‘' + item.title + '’ 结束了。'],
+          length: 1
+        });
+      } else {
+        this.setState({
+          contents: ['‘' + item.title + '’ 中完成了‘' + item.milestone + '’ 。'],
+          length: 1
+        });
+      }
+    }
+  }
+
+  componentDidMount() {
+    let { items, idx, details } = this.props;
+    let item = items[idx];
+
+    if (!item) {
       this.setState({
-        length: this.props.contents.length ? 1 : 0
+        contents: [],
+        length: 0
+      });
+      return;
+    }
+
+    if (item.fetchId !== null) {
+      let detail = details[item.fetchId];
+      console.log(detail);
+      let contents = detail.DiaryPageContent.split('</p><p>');
+      this.setState({
+        contents,
+        length: contents.length ? 1 : 0
+      });
+    } else if (item.milestone === null) {
+      this.setState({
+        contents: ['‘' + item.title + '’ 结束了。'],
+        length: 1
+      });
+    } else {
+      this.setState({
+        contents: ['‘' + item.title + '’ 中完成了‘' + item.milestone + '’ 。'],
+        length: 1
       });
     }
   }
 
   render() {
-    let { contents } = this.props;
-    let { length } = this.state;
+    let { length, contents } = this.state;
 
     return (
       <div className="diary-wrapper">
@@ -50,7 +108,9 @@ class DiaryComponent extends Component {
 
 export default connect(
   (store) => ({
-    contents: store.diary.contents.map(content => '    ' + content)
+    items: store.item_selector.data,
+    idx: store.item_selector.idx,
+    details: store.details
   }),
   (dispatch) => ({})
 )(DiaryComponent);

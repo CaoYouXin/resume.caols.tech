@@ -1,13 +1,30 @@
 import React, { Component } from "react";
 import "./HandleBar.css";
 import { connect } from 'react-redux';
-import { group, clearButToken } from '../../utils';
+import { group } from '../../utils';
+import { showItemSelector, fetchPage, nextItem, setCanNext, digest, backToBooks } from '../../actions';
 
 class HandleBar extends Component {
+  next() {
+    let { idx, items, nextClicked } = this.props;
+    let item = items[idx + 1];
+
+    if (!item) {
+      alert('已全部结束!');
+      return;
+    }
+
+    nextClicked(item);
+  }
+
   render() {
     return (
       <div className="handles-wrapper v-mid-box">
-        <div className={group(null, ["button", this.props.status])} onClick={this.props.clicked}></div>
+        <div className="list button" onClick={this.props.listClicked}></div>
+        <div className={group({
+          "disabled": !this.props.canNext
+        }, ["next button"])} onClick={(e) => this.next()}></div>
+        <div className="cancel-all button" onClick={this.props.cancelAllClicked}></div>
       </div>
     );
   }
@@ -15,24 +32,30 @@ class HandleBar extends Component {
 
 export default connect(
   (store) => ({
-    status: store.handle_bar.status
+    canNext: store.handle_bar,
+    items: store.item_selector.data,
+    idx: store.item_selector.idx
   }),
   (dispatch) => ({
-    clicked: () => {
-      // dispatch({
-      //   type: 'TIME_HEADER_STATUS',
-      //   status: Math.random() < 0.5 ? 'stopped' : 'going'
-      // });
-      // dispatch({
-      //   type: 'LOCATION_CHANGE',
-      //   location: Math.random().toFixed(2)
-      // });
-      // dispatch({
-      //   type: 'CURSOR_COORD_CHANGE',
-      //   lontitude: -116.46,
-      //   latitude: 39.92
-      // });
-      clearButToken();
+    nextClicked: (item) => {
+      dispatch(setCanNext(false));
+      dispatch(digest([item]));
+      if (item.fetchId !== null) {
+        dispatch(fetchPage(item.fetchId, () => {
+          dispatch(nextItem());
+        }));
+      } else {
+        dispatch(nextItem());
+      }
+    },
+    listClicked: () => {
+      dispatch(showItemSelector(true));
+    },
+    cancelAllClicked: () => {
+      let confirmed = window.confirm("确定要退出吗？");
+      if (confirmed) {
+        dispatch(backToBooks());
+      }
     }
   })
 )(HandleBar);
