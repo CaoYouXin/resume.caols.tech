@@ -1,14 +1,12 @@
 {
-  "main.css": "static/css/main.cd155a2b.css",
-  "main.css.map": "static/css/main.cd155a2b.css.map",
-  "main.js": "static/js/main.2394b62e.js",
-  "main.js.map": "static/js/main.2394b62e.js.map",
+  "main.css": "static/css/main.360d9825.css",
+  "main.css.map": "static/css/main.360d9825.css.map",
+  "main.js": "static/js/main.acf74aeb.js",
+  "main.js.map": "static/js/main.acf74aeb.js.map",
   "static/media/Carte de la terre.png": "static/media/Carte de la terre.92ef540d.png",
   "static/media/Moraine_Lake.jpg": "static/media/Moraine_Lake.e864631b.jpg",
   "static/media/bg.jpg": "static/media/bg.6d94a463.jpg",
   "static/media/blur.jpg": "static/media/blur.0c1ed8b9.jpg",
   "static/media/day-and-night.png": "static/media/day-and-night.20b820cf.png",
-  "static/media/hover_forward.png": "static/media/hover_forward.278975a6.png",
-  "static/media/normal_forward.png": "static/media/normal_forward.f1171d13.png",
   "static/media/sound.mp3": "static/media/sound.6372c7b9.mp3"
 }
