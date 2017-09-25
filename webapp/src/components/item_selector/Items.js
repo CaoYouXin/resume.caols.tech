@@ -85,6 +85,10 @@ export default connect(
   (dispatch) => ({
     open: (item, idx, data) => {
       if (item.no - 1 === idx) {
+        dispatch({
+          type: "ITEM_SELECTOR_SHOW",
+          show: false
+        });
         return;
       }
 
