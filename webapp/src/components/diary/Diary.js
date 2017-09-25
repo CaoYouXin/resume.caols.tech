@@ -68,7 +68,6 @@ class DiaryComponent extends Component {
 
     if (item.fetchId !== null) {
       let detail = details[item.fetchId];
-      console.log(detail);
       let contents = detail.DiaryPageContent.split('</p><p>');
       this.setState({
         contents,

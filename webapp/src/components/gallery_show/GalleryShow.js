@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './GalleryShow.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
+import { getAPI } from '../../http';
 
 class GalleryShowComponent extends Component {
 
@@ -67,7 +68,18 @@ class GalleryShowComponent extends Component {
     }
     this.canNext = false;
 
-    let { index, items } = this.props;
+    let { index, data, idx, details } = this.props;
+
+    let items = [];
+    if (data[idx]) {
+      let fetchId = data[idx].fetchId || data[idx].secondFetchId;
+
+      if (fetchId !== null) {
+        let detail = details[fetchId];
+        items = detail.DiaryPhotoes || [];
+      }
+    }
+
     if (index >= items.length - 1) {
       alert('没有了！');
       this.canNext = true;
@@ -113,19 +125,30 @@ class GalleryShowComponent extends Component {
   item(key) {
     switch (key) {
       case "show-prev":
-        return (index, items) => items[index - 1];
+        return (index, items) => 'url(' + getAPI('server') + '/' + items[index - 1].DiaryPhotoUrl + ')';
       case "show-next":
-        return (index, items) => items[index + 1];
+        return (index, items) => 'url(' + getAPI('server') + '/' + items[index + 1].DiaryPhotoUrl + ')';
       case "show-current":
-        return (index, items) => items[index];
+        return (index, items) => 'url(' + getAPI('server') + '/' + items[index].DiaryPhotoUrl + ')';
       default:
         throw new Error('unhandled key : ' + key);
     }
   }
 
   render() {
-    let { close, show, index, items } = this.props;
+    let { close, show, index, data, idx, details } = this.props;
     let { keys, slot0, slot1, slot2, slot0class, slot1class, slot2class, slot0ani, slot1ani, slot2ani } = this.state;
+
+    let items = [];
+    if (data[idx]) {
+      let fetchId = data[idx].fetchId || data[idx].secondFetchId;
+
+      if (fetchId !== null) {
+        let detail = details[fetchId];
+        items = detail.DiaryPhotoes || [];
+      }
+    }
+
     return (
       <div className={group({
         "show": show
@@ -166,7 +189,9 @@ export default connect(
   (store) => ({
     index: store.gallery_show.index,
     show: store.gallery_show.status,
-    items: store.gallery.map(item => 'url(' + item + ')')
+    data: store.item_selector.data,
+    idx: store.item_selector.idx,
+    details: store.details
   }),
   (dispatch) => ({
     close: () => {

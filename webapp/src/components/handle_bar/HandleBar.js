@@ -40,8 +40,9 @@ export default connect(
     nextClicked: (item) => {
       dispatch(setCanNext(false));
       dispatch(digest([item]));
-      if (item.fetchId !== null) {
-        dispatch(fetchPage(item.fetchId, () => {
+      let fetchId = item.fetchId || item.secondFetchId;
+      if (fetchId !== null) {
+        dispatch(fetchPage(fetchId, () => {
           dispatch(nextItem());
         }));
       } else {

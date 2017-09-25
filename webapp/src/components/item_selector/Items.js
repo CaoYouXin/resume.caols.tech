@@ -3,7 +3,7 @@ import './Items.css';
 import { connect } from 'react-redux';
 import { group } from '../../utils';
 import Scrollbar from 'smooth-scrollbar';
-import { digest } from '../../actions';
+import { digest, fetchPage } from '../../actions';
 
 class ItemsComponent extends Component {
   constructor(props) {
@@ -62,17 +62,20 @@ export default connect(
       if (item.milestone === null) {
         if (item.fetchId === null) {
           return {
+            ...item,
             title: '(终)' + item.title,
             no: i + 1
           };
         } else {
           return {
+            ...item,
             title: '(始)' + item.title,
             no: i + 1
           };
         }
       } else {
         return {
+          ...item,
           title: '(碑)' + item.title + ' ' + item.milestone,
           no: i + 1
         }
@@ -91,14 +94,28 @@ export default connect(
         dispatch(digest(data.slice(idx + 1, item.no)));
       }
 
-      dispatch({
-        type: 'ITEM_IDX_RESET',
-        idx: item.no - 1
-      });
-      dispatch({
-        type: "ITEM_SELECTOR_SHOW",
-        show: false
-      });
+      let fetchId = item.fetchId || item.secondFetchId;
+      if (fetchId !== null) {
+        dispatch(fetchPage(fetchId, () => {
+          dispatch({
+            type: 'ITEM_IDX_RESET',
+            idx: item.no - 1
+          });
+          dispatch({
+            type: "ITEM_SELECTOR_SHOW",
+            show: false
+          });
+        }));
+      } else {
+        dispatch({
+          type: 'ITEM_IDX_RESET',
+          idx: item.no - 1
+        });
+        dispatch({
+          type: "ITEM_SELECTOR_SHOW",
+          show: false
+        });
+      }
     }
   })
 )(ItemsComponent);

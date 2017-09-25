@@ -59,12 +59,12 @@ export const fetchPages = (bookId) => (dispatch) => {
     });
 
     dispatch({
-      type: 'ITEMS_GENERATED',
-      array
-    });
-    dispatch({
       type: 'ITEM_IDX_RESET',
       idx: -1
+    });
+    dispatch({
+      type: 'ITEMS_GENERATED',
+      array
     });
     dispatch({
       type: "RESET_MATTER_ITEM"
